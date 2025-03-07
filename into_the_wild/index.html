@@ -2,7 +2,7 @@
   <head>
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
     <script>
-      AFRAME.registerComponent<'sounding', {
+      AFRAME.registerComponent('sounding', {
         tick: function () {
           if (Math.random() < 0.99) return;
             var sound = this.el.components.sound;
