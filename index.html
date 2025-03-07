@@ -1,38 +1,15 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-physics-system@v4.2.2/dist/aframe-physics-system.min.js">
- </script>
-    <script>
-      AFRAME.registerComponent('removing', {
-        init: function () {
-          var el = this.el;
-          el.addEventListener('mouseenter', function () { el.setAttribute('color', 'red') });
-          el.addEventListener('mouseleave', function () { el.setAttribute('color', 'firebrick') });
-          el.addEventListener('click', function () { el.remove(); });
-        }
-      });
-    </script>
   </head>
   <body>
-    <a-scene id="s1" background="color: cadetblue" cursor="rayOrigin: mouse">
-      <a-plane static-body height="100" width="100" rotation="-90 0 0"></a-plane>
-      <a-camera><a-cursor fuse="true" fuse-timeout="5000"></a-cursor></a-camera>
-      </a-scene>
-    <script>
-      var scene1 = document.getElementById('s1');
-      for (var i = -0; i < 9; i++) {
-        var e = i % 2, o = !e;
-        for(var j = 0; j < 5; j++) {
-          var box = document.createElement('a-box');
-          box.setAttribute('dynamic-body', '');
-          box.setAttribute('removing', '');
-          box.setAttribute('position', e * (j - 2) + ' ' + (i + 0.5) + ' ' + (-12 - (j - 2) * o));  
-          box.setAttribute('color', 'firebrick');
-          box.setAttribute('scale', (4 * o + 1) + ' 1 ' + (4* e + 1));
-          scene1.appendChild(box);
-        }
-      }
-    </script>
+  <a-scene id="s1" background="color:#0d0928" fog="far:300" shadow="type: pcfsoft">
+    <a-camera position="0 3 0"></a-camera>
+    <a-sphere radius="500" position="0 5000 0" material="fog: false"></a-sphere>
+    <a-entity position="0 250 0" light="type: directional; intensity: 0.5; castShadow: true;
+      shadowCameraBottom: -500; shadowCameraTop: 500; shadowCameraLeft: -500; shadowCameraRight: 500">
+      </a-entity>
+    <a-light type="ambient" intensity="0.25"></a-light>
+    <a-plane color="#2a1c0e" height="1000" rotation+"-90 0 0" metalness="0" shadow></a-plane>
+    </a-scene>
   </body>
-</html>
