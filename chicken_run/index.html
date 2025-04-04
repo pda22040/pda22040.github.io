@@ -27,10 +27,10 @@
     <hr />
     <div align="center">
     <!-- ΕΔΩ ΠΕΡΙΓΡΑΦΩ ΤΗ ΣΚΗΝΗ -->
- <a-camera id="cam">
-      <a-cursor color="yellow" fuse="true" far="10"></a-cursor>
-        </a-camera>
-    </a-scene>
+   <a-scene cursor="rayOrigin: mouse" background="color:cadetblue" ondblclick="this.requestFullscreen();" embedded>
+      <a-entity id="prisoner" fbx-model="src:url(Dying.fbx)" position="300 -150 -300"
+          animation-mixer="loop: once; clampWhenFinished: true; timeScale: 0" testing></a-entity>
+  </a-scene>
     </div>
     <script>
     // ΕΔΩ ΔΗΜΙΟΥΡΓΩ ΠΟΛΛΑΠΛΑ ΑΝΤΙΓΡΑΦΑ ΜΙΑΣ ΟΝΤΟΤΗΤΑΣ
