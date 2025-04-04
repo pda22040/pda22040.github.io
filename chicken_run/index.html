@@ -28,8 +28,10 @@
     <div align="center">
     <!-- ΕΔΩ ΠΕΡΙΓΡΑΦΩ ΤΗ ΣΚΗΝΗ -->
     <a-scene cursor="rayOrigin: mouse" background="color:cadetblue" ondblclick="this.requestFullscreen();" embedded>
-        <a-entity id="prisoner" fbx-model="src:url(Dying.fbx)" position="300 -150 -300"
-            animation-mixer="loop: once; clampWhenFinished: true; timeScale: 0" testing></a-entity>
+      <a-camera>
+          <a-cursor>
+          </a-cursor>
+      </a-camera>  
     </a-scene>
     </div>
     <script>
