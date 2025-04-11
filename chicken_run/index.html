@@ -21,6 +21,9 @@
     <!-- ΕΔΩ ΠΕΡΙΓΡΑΦΩ ΤΗ ΣΚΗΝΗ -->
       <a-scene id="s1" cursor="rayOrigin: mouse" background="color:LightBlue" shadow="type: pcfsoft" ondblclick="this.requestFullscreen();" embedded>
           <a-camera><a-cursor fuse="true" fuse-timeout="5000"></a-cursor></a-camera>
+           <a-entity position="0 250 0" light="type: directional; intensity: 0.5; castShadow: true;
+      shadowCameraBottom: -500; shadowCameraTop: 500; shadowCameraLeft: -500; shadowCameraRight: 500">
+      </a-entity>
           <a-plane color="DarkOliveGreen" height="1000" width="1000" rotation="-90 0 0" metalness="0" shadow></a-plane>
           <a-assets>
               <a-asset-item id="spruce_tree" src="spruce_tree.glb"></a-asset-item>
