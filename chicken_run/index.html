@@ -31,8 +31,11 @@
           <a-entity glb-model="#tree" scale="10 10 10" shadow="receive: false" position="-50 25 -50">
               </a-entity>
       </a-scene>
-      <script>
-           var scene1 = document.getElementById('s1');
+ 
+    <script>
+         
+    // ΕΔΩ ΔΗΜΙΟΥΡΓΩ ΠΟΛΛΑΠΛΑ ΑΝΤΙΓΡΑΦΑ ΜΙΑΣ ΟΝΤΟΤΗΤΑΣ
+          var scene1 = document.getElementById('s1');
       for(var i = 0; i < 500; i++) {
         var tree = document.createElement('a-entity');
         var x = Math.random() * 800 - 400;
@@ -46,19 +49,6 @@
         tree.setAttribute('shadow', 'receive: false');
         scene1.appendChild(tree);
       }
-        
-
-        
-
-        
-    <script>
-         
-    // ΕΔΩ ΔΗΜΙΟΥΡΓΩ ΠΟΛΛΑΠΛΑ ΑΝΤΙΓΡΑΦΑ ΜΙΑΣ ΟΝΤΟΤΗΤΑΣ
-        for (var i = -300; i < 300; i += 300) {
-            var p = document.getElementById('prisoner').cloneNode(true);
-            p.setAttribute('position', i + ' -150 -300');
-            document.querySelector('a-scene').appendChild(p);
-        }
     </script>
     <hr />
     <p><strong>Οδηγίες:<strong>...</p>
