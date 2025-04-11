@@ -5,14 +5,12 @@
     <script>
     // ΕΔΩ ΤΟΠΟΘΕΤΩ ΤΑ ΣΥΣΤΑΤΙΚΑ (COMPONENTS) ΠΟΥ ΕΧΩ ΔΗΜΙΟΥΡΓΗΣΕΙ
     </script>
-    
     <style>
         h1 { text-align: center; }
         h3 { text-align: center; }
         a-scene { width: 50%; height: 50%; border: dotted RosyBrown 5px; }
     </style>
 </head>
-
 <body>
     <h1>Chicken Run</h1>
     <h3>Σοφία Κόντη</h3>
@@ -27,10 +25,8 @@
           <a-light type="ambient" intensity="0.50"></a-light>
           <a-assets>
               <a-asset-item id="tree" src="tree.glb"></a-asset-item>
-          </a-assets>
-          <a-entity glb-model="#tree" scale="10 10 10" shadow="receive: false" position="-50 25 -50">
-              </a-entity>
-      </a-scene>
+              </a-assets>
+        </a-scene>
     <script>       
     // ΕΔΩ ΔΗΜΙΟΥΡΓΩ ΠΟΛΛΑΠΛΑ ΑΝΤΙΓΡΑΦΑ ΜΙΑΣ ΟΝΤΟΤΗΤΑΣ
         var scene1 = document.getElementById('s1');
