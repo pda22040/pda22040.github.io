@@ -31,7 +31,7 @@
     // ΕΔΩ ΔΗΜΙΟΥΡΓΩ ΠΟΛΛΑΠΛΑ ΑΝΤΙΓΡΑΦΑ ΜΙΑΣ ΟΝΤΟΤΗΤΑΣ
         var scene1 = document.getElementById('s1');
         for(var i = 0; i < 10; i++) {
-        var spruce_tree = document.createElement('a-entity');
+        var tree = document.createElement('a-entity');
         var x = Math.random() * 80 - 40;
         var z = Math.random() * 80 - 40;
         var s = Math.random() * 15 + 5;
@@ -41,7 +41,7 @@
         tree.setAttribute('scale', s + ' ' + s + ' ' + s);
         tree.setAttribute('rotation', '0 ' + r + ' 0');
         tree.setAttribute('shadow', 'receive: false');
-        scene1.appendChild(spruce_tree);
+        scene1.appendChild(tree);
       }
     </script>
       </script>
