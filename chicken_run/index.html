@@ -32,6 +32,10 @@
          <a-plane color="DarkOliveGreen" height="1000" width="1000" rotation="-90 0 0" metalness="0" shadow></a-plane>
       </a-scene>
     <script>
+
+     <a-assets>
+      <a-asset-item id="tree" src="tree.glb"></a-asset-item>
+    </a-assets>
     // ΕΔΩ ΔΗΜΙΟΥΡΓΩ ΠΟΛΛΑΠΛΑ ΑΝΤΙΓΡΑΦΑ ΜΙΑΣ ΟΝΤΟΤΗΤΑΣ
         for (var i = -300; i < 300; i += 300) {
             var p = document.getElementById('prisoner').cloneNode(true);
