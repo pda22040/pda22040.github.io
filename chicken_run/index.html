@@ -21,7 +21,7 @@
     <hr />
     <div align="center">
     <!-- ΕΔΩ ΠΕΡΙΓΡΑΦΩ ΤΗ ΣΚΗΝΗ -->
-      <a-scene cursor="rayOrigin: mouse" background="color:LightBlue" shadow="type: pcfsoft" ondblclick="this.requestFullscreen();" embedded>
+      <a-scene id="s1" cursor="rayOrigin: mouse" background="color:LightBlue" shadow="type: pcfsoft" ondblclick="this.requestFullscreen();" embedded>
           <a-camera><a-cursor fuse="true" fuse-timeout="5000"></a-cursor></a-camera>
           <a-plane color="DarkOliveGreen" height="1000" width="1000" rotation="-90 0 0" metalness="0" shadow></a-plane>
           <a-light type="ambient" intensity="0.50"></a-light>
@@ -31,6 +31,21 @@
           <a-entity glb-model="#tree" scale="10 10 10" shadow="receive: false" position="-50 25 -50">
               </a-entity>
       </a-scene>
+      <script>
+           var scene1 = document.getElementById('s1');
+      for(var i = 0; i < 500; i++) {
+        var tree = document.createElement('a-entity');
+        var x = Math.random() * 800 - 400;
+        var z = Math.random() * 800 - 400;
+        var s = Math.random() * 15 + 5;
+        var r = Math.random() * 180 - 90;
+        tree.setAttribute('gltf-model', '#tree');
+        tree.setAttribute('position', x + ' 0 ' + z);
+        tree.setAttribute('scale', s + ' ' + s + ' ' + s);
+        tree.setAttribute('rotation', '0 ' + r + ' 0');
+        tree.setAttribute('shadow', 'receive: false');
+        scene1.appendChild(tree);
+      }
         
 
         
