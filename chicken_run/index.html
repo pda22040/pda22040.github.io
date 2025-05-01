@@ -3,6 +3,7 @@
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
     <script>
+        
     // ΕΔΩ ΤΟΠΟΘΕΤΩ ΤΑ ΣΥΣΤΑΤΙΚΑ (COMPONENTS) ΠΟΥ ΕΧΩ ΔΗΜΙΟΥΡΓΗΣΕΙ
     </script>
     <style>
@@ -18,16 +19,19 @@
     <P><strong>Οι κότες το έσκασαν και κρύβονται στο δάσος! Χρησιμοποίησε τα εργαλία που θα βρείς στην αποθήκη με τον κατάλληλο τρόπο, έτσι ώστε να πιάσεις τις κότες και να τις μαζέψεις ξανά στο κοτέτσι τους</strong>...</P>
     <hr />
     <div align="center">
+        
     <!-- ΕΔΩ ΠΕΡΙΓΡΑΦΩ ΤΗ ΣΚΗΝΗ -->
       <a-scene id="s1" cursor="rayOrigin: mouse" background="color:LightBlue" shadow="type: pcfsoft" ondblclick="this.requestFullscreen();" embedded>
           <a-camera><a-cursor fuse="true" fuse-timeout="5000"></a-cursor></a-camera>
           <a-plane color="DarkOliveGreen" height="1000" width="1000" rotation="-90 0 0" metalness="0" shadow></a-plane>
           <a-assets>
               <a-asset-item id="spruce_tree" src="spruce_tree.glb"></a-asset-item>
+              <a-asset-item id="little_farmhouse" src="little_farmhouse.glb"></a-asset-item>
               </a-assets>
         </a-scene>
     </div>
-    <script>       
+    <script>     
+        
     // ΕΔΩ ΔΗΜΙΟΥΡΓΩ ΠΟΛΛΑΠΛΑ ΑΝΤΙΓΡΑΦΑ ΜΙΑΣ ΟΝΤΟΤΗΤΑΣ
         var scene1 = document.getElementById('s1');
         for(var i = 0; i < 10; i++) {
