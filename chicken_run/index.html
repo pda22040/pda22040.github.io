@@ -35,7 +35,7 @@
         
     // ΕΔΩ ΔΗΜΙΟΥΡΓΩ ΠΟΛΛΑΠΛΑ ΑΝΤΙΓΡΑΦΑ ΜΙΑΣ ΟΝΤΟΤΗΤΑΣ
         var scene1 = document.getElementById('s1');
-        for(var i = 0; i < 60; i++) {
+        for(var i = 0; i < 10; i++) {
         var tree = document.createElement('a-entity');
         var x = Math.random() * 80 - 40;
         var z = Math.random() * 80 - 40;
@@ -48,7 +48,7 @@
         tree.setAttribute('shadow', 'receive: false');
         scene1.appendChild(tree);
       }
-      for (var i = 0; i < 60; i++) {
+      for (var i = 0; i < 10; i++) {
       var flowers = document.createElement('a-entity');
       var x = Math.random() * 50 - 45;
       var y = Math.random() * 10 + 10;
