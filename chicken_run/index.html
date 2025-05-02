@@ -29,7 +29,7 @@
               <a-asset-item id="little_farmhouse" src="little_farmhouse.glb"></a-asset-item>
               <a-asset-item id="flowers_pack" src="flowers_pack.glb"></a-asset-item>
               </a-assets>
-          <a-entity glb-model="little_framhouse" scale=" 3 3 3" position="1 1 1"></a-entity>
+          <a-entity glb-model="little_farmhouse" scale=" 3 3 3" position="1 1 1"></a-entity>
         </a-scene>
     </div>
     <script>     
@@ -46,7 +46,6 @@
         tree.setAttribute('position', x + ' 0 ' + z);
         tree.setAttribute('scale', s + ' ' + s + ' ' + s);
         tree.setAttribute('rotation', '0 ' + r + ' 0');
-        tree.setAttribute('shadow', 'receive: false');
         scene1.appendChild(tree);
       }
       for (var i = 0; i < 10; i++) {
@@ -59,6 +58,7 @@
        flowers.setAttribute('position', x + ' ' + y + ' ' + z);
        flowers.setAttribute('scale', '0.01 0.01 0.01');
        flowers.setAttribute('rotation', '0 ' + r + ' 0');
+       flowers.setAttribute('shadow', 'receive: false');  
        scene1.appendChild(flowers);
       }
     </script>
