@@ -28,7 +28,7 @@
           <a-assets>
               <a-asset-item id="spruce_tree" src="spruce_tree.glb"></a-asset-item>
               <a-asset-item id="little_farmhouse" src="little_farmhouse.glb"></a-asset-item>
-              <a-asset-item id="white_flower" src="white_flower.glb"></a-asset-item>
+              <a-asset-item id="flowers_pack" src="flowers_pack.glb"></a-asset-item>
               </a-assets>
           <a-entity glb-model="little_farmhouse" scale="3 3 3" position="1 1 1"></a-entity>
         </a-scene>
@@ -55,7 +55,7 @@
       var y = Math.random() * 10 + 10;
       var s = Math.random() * 1;
       var r = Math.random() * 180 - 90;
-       flowers.setAttribute('gltf-model', '#white_flower');
+       flowers.setAttribute('gltf-model', '#flowers_pack');
        flowers.setAttribute('position', x + ' 0 ' + z);
        flowers.setAttribute('scale', s + ' ' + s + ' ' + s);
        flowers.setAttribute('rotation', '0 ' + r + ' 0');
