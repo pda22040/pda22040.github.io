@@ -30,7 +30,7 @@
               <a-asset-item id="little_farmhouse" src="little_farmhouse.glb"></a-asset-item>
               <a-asset-item id="colored_flower" src="colored_flower.glb"></a-asset-item>
               </a-assets>
-          <a-entity gltf-model="little_farmhouse" scale="3 3 3" position="1 1 1"></a-entity>
+          <a-entity gltf-model="#little_farmhouse" scale="3 3 3" position="1 1 1"></a-entity>
         </a-scene>
     </div>
     <script>     
@@ -52,7 +52,7 @@
       for (var i = 0; i < 60; i++) {
       var flowers = document.createElement('a-entity');
       var x = Math.random() * 200 - 150;
-      var y = Math.random() * 200 + 150;
+      var z = Math.random() * 200 - 150;
       var s = 0.05;
       var r = Math.random() * 180 - 90;
       flowers.setAttribute('gltf-model', '#colored_flower');
