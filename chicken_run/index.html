@@ -35,6 +35,42 @@
         </a-scene>
     </div>
 
+<script>
+AFRAME.registerComponent('chicken-behavior', {
+  schema: {
+    coop: { type: 'vec3' }
+  },
+  init: function () {
+    this.caught = false;
+    this.camera = document.querySelector('a-camera').object3D;
+  },
+  tick: function (time, delta) {
+    if (this.caught) {
+      const pos = this.el.object3D.position;
+      const target = new THREE.Vector3(this.data.coop.x, pos.y, this.data.coop.z);
+      const dir = new THREE.Vector3().subVectors(target, pos).normalize();
+      this.el.object3D.translateOnAxis(dir, 1 * delta / 1000);
+      this.el.object3D.lookAt(target);
+      return;
+    }
+
+    const chickenPos = this.el.object3D.position;
+    const playerPos = this.camera.position;
+    const distance = chickenPos.distanceTo(playerPos);
+
+    if (distance < 1.2) {
+      this.caught = true;
+    } else if (distance < 3) {
+      const dir = new THREE.Vector3().subVectors(chickenPos, playerPos).normalize();
+      this.el.object3D.translateOnAxis(dir, 1 * delta / 1000);
+      this.el.object3D.lookAt(playerPos);
+    }
+  }
+});
+</script>
+
+
+    
     
 <script>
   AFRAME.registerComponent('random-walk', {
@@ -77,6 +113,7 @@
       chicken.setAttribute('scale', '0.1 0.1 0.1');
       chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
       chicken.setAttribute('random-walk', 'speed: 0.2; range: 10');
+      chicken.setAttribute('chicken-behavior', 'coop: 1 0 1');
 
       scene1.appendChild(chicken);
     }
