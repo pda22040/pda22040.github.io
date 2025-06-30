@@ -43,16 +43,29 @@ AFRAME.registerComponent('chicken-behavior', {
   init: function () {
     this.caught = false;
     this.camera = document.querySelector('a-camera').object3D;
+    this.teleported = false;
   },
   tick: function (time, delta) {
-    if (this.caught) {
-      const pos = this.el.object3D.position;
-      const target = new THREE.Vector3(this.data.coop.x, pos.y, this.data.coop.z);
-      const dir = new THREE.Vector3().subVectors(target, pos).normalize();
-      this.el.object3D.translateOnAxis(dir, 1 * delta / 1000);
-      this.el.object3D.lookAt(target);
-      return;
+    if (this.caught && !this.teleported) {
+      // Απόκρυψη
+      this.el.setAttribute('visible', false);
+
+      // Νέα θέση: κοντά στο κοτέτσι (τυχαία μικρή μετατόπιση)
+      const offsetX = (Math.random() - 0.5) * 4;
+      const offsetZ = (Math.random() - 0.5) * 4;
+      const newX = this.data.coop.x + offsetX;
+      const newZ = this.data.coop.z + offsetZ;
+
+      // Νέα τοποθέτηση
+      this.el.setAttribute('position', `${newX} 0 ${newZ}`);
+      
+      // Εμφάνιση
+      this.el.setAttribute('visible', true);
+
+      this.teleported = true;
     }
+
+    if (this.caught) return;
 
     const chickenPos = this.el.object3D.position;
     const playerPos = this.camera.position;
@@ -68,6 +81,7 @@ AFRAME.registerComponent('chicken-behavior', {
   }
 });
 </script>
+
 
 
     
@@ -113,7 +127,7 @@ AFRAME.registerComponent('chicken-behavior', {
       chicken.setAttribute('scale', '0.1 0.1 0.1');
       chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
       chicken.setAttribute('random-walk', 'speed: 0.2; range: 10');
-      chicken.setAttribute('chicken-behavior', 'coop: 1 0 1');
+      chicken.setAttribute('chicken-behavior', 'coop: 1 0 1'); 
 
       scene1.appendChild(chicken);
     }
