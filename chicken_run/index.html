@@ -52,11 +52,11 @@
     const posX = baseX + offsetX;
     const posZ = baseZ + 3;
 
-    chicken.setAttribute('gltf-model', '#baby_chicken');
-    chicken.setAttribute('position', `${posX} 0 ${posZ}`);
-    chicken.setAttribute('scale', '0.3 0.3 0.3');
-    chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
-    chicken.setAttribute('random-walk', ''); // αν δεν θες να κινούνται, μπορείς να το βγάλεις
+    baby_chicken.setAttribute('gltf-model', '#baby_chicken');
+    baby_chicken.setAttribute('position', `${posX} 0 ${posZ}`);
+    baby_chicken.setAttribute('scale', '0.3 0.3 0.3');
+    baby_chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
+    baby_chicken.setAttribute('random-walk', ''); // αν δεν θες να κινούνται, μπορείς να το βγάλεις
 
     scene1.appendChild(baby_chicken);
   }
