@@ -41,20 +41,35 @@
     
 <script>
 // Component για έλεγχο αν η κάμερα κοιτάει κοτόπουλο
- AFRAME.registerComponent('look-at-chicken-toggle', {
+AFRAME.registerComponent('look-at-chicken-toggle', {
   schema: {
     chickensSelector: {type: 'string', default: '.chicken'},
-    thresholdAngle: {type: 'number', default: 0.1}  // σε radians (~5.7 μοίρες)
+    thresholdAngle: {type: 'number', default: 0.1},  // σε radians (~5.7 μοίρες)
+    lookDuration: {type: 'number', default: 2000}  // ms για να ενεργοποιηθεί το κοτέτσι
   },
   init: function() {
     this.camera = null;
     this.chickens = document.querySelectorAll(this.data.chickensSelector);
+    this.lookStart = null;
+    this.isLooking = false;
+    this.coopEntity = null;
+
+    // Δημιουργούμε το κοτέτσι αλλά το κάνουμε αόρατο αρχικά
+    this.coopEntity = document.createElement('a-entity');
+    this.coopEntity.setAttribute('gltf-model', '#little_farmhouse');
+    this.coopEntity.setAttribute('scale', '0.5 0.5 0.5');
+    this.coopEntity.setAttribute('position', '1 0 1');  // πχ θέση κοτετσιού (μπορείς να την αλλάξεις)
+    this.coopEntity.setAttribute('visible', 'false');
+    this.el.sceneEl.appendChild(this.coopEntity);
   },
-  tick: function() {
+  tick: function(time, delta) {
     if (!this.camera) {
       this.camera = this.el.getObject3D('camera');
       if (!this.camera) return;
     }
+
+    let lookingAtChicken = false;
+
     this.chickens.forEach(chicken => {
       if (!chicken.object3D) return;
 
@@ -72,11 +87,30 @@
       const angle = camDir.angleTo(camToChicken);
 
       if (angle < this.data.thresholdAngle) {
+        // Κοιτάμε κοτόπουλο
+        lookingAtChicken = true;
         chicken.setAttribute('visible', false);
       } else {
         chicken.setAttribute('visible', true);
       }
     });
+
+    if (lookingAtChicken) {
+      if (!this.isLooking) {
+        this.isLooking = true;
+        this.lookStart = time;
+      } else {
+        // Εάν κοιτάμε για πάνω από 2 δευτ.
+        if (time - this.lookStart >= this.data.lookDuration) {
+          this.coopEntity.setAttribute('visible', 'true');
+        }
+      }
+    } else {
+      // Δεν κοιτάμε κοτόπουλα: μηδενίζουμε τον timer & κρύβουμε το κοτέτσι
+      this.isLooking = false;
+      this.lookStart = null;
+      this.coopEntity.setAttribute('visible', 'false');
+    }
   }
 });
     
