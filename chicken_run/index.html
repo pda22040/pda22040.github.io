@@ -46,19 +46,19 @@
 
   // Φτιάχνουμε 5 κοτούλες μπροστά από το σπίτι
   for (let i = 0; i < 5; i++) {
-    const chicken = document.createElement('a-entity');
+    const baby_chicken = document.createElement('a-entity');
 
     const offsetX = (i - 2) * 2; // -4, -2, 0, 2, 4
     const posX = baseX + offsetX;
     const posZ = baseZ + 3;
 
-    chicken.setAttribute('gltf-model', '#chicken');
+    chicken.setAttribute('gltf-model', '#baby_chicken');
     chicken.setAttribute('position', `${posX} 0 ${posZ}`);
     chicken.setAttribute('scale', '0.3 0.3 0.3');
     chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
     chicken.setAttribute('random-walk', ''); // αν δεν θες να κινούνται, μπορείς να το βγάλεις
 
-    scene1.appendChild(chicken);
+    scene1.appendChild(baby_chicken);
   }
 
   // Τα υπόλοιπα όπως έχεις: trees, flowers
