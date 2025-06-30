@@ -39,8 +39,8 @@
  <script>
   AFRAME.registerComponent('random-walk', {
     schema: {
-      speed: { type: 'number', default: 0.5 },
-      range: { type: 'number', default: 50 }
+      speed: { type: 'number', default: 0.2 },  // πιο αργή κίνηση
+      range: { type: 'number', default: 10 }    // μικρότερη απόσταση στόχου
     },
     init: function () {
       this.target = new THREE.Vector3();
@@ -52,37 +52,42 @@
       const dir = new THREE.Vector3().subVectors(this.target, pos).normalize();
       const dist = pos.distanceTo(this.target);
 
-      if (dist < 1) this.chooseNewTarget();
+      if (dist < 0.5) this.chooseNewTarget();  // αν είναι κοντά, βρες νέο στόχο
 
       el.translateOnAxis(dir, this.data.speed * delta / 1000);
       el.lookAt(this.target);
     },
     chooseNewTarget: function () {
-      const x = Math.random() * this.data.range - this.data.range / 2;
-      const z = Math.random() * this.data.range - this.data.range / 2;
+      // Κινείται ελαφρώς γύρω από το τωρινό σημείο του
+      const current = this.el.object3D.position;
+      const x = current.x + (Math.random() * this.data.range - this.data.range / 2);
+      const z = current.z + (Math.random() * this.data.range - this.data.range / 2);
       this.target.set(x, 0, z);
     }
   });
-
-  // Δημιουργία 5 κοτοπουλιών σε τυχαία σημεία
-  window.onload = function () {
-    const scene1 = document.getElementById('s1');
-
-    for (let i = 0; i < 5; i++) {
-      const chicken = document.createElement('a-entity');
-      const x = Math.random() * 400 - 200;
-      const z = Math.random() * 400 - 200;
-
-      chicken.setAttribute('gltf-model', '#baby_chicken');
-      chicken.setAttribute('position', `${x} 0 ${z}`);
-      chicken.setAttribute('scale', '0.3 0.3 0.3');
-      chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
-      chicken.setAttribute('random-walk', '');
-
-      scene1.appendChild(chicken);
-    }
-  };
 </script>
+
+<script>
+
+for (let i = 0; i < 5; i++) {
+  const chicken = document.createElement('a-entity');
+  const x = Math.random() * 400 - 200;
+  const z = Math.random() * 400 - 200;
+
+  chicken.setAttribute('gltf-model', '#baby_chicken');
+  chicken.setAttribute('position', `${x} 0 ${z}`);
+  chicken.setAttribute('scale', '0.3 0.3 0.3');
+  chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
+  
+  // 👉 Βάλε ΕΔΩ το random-walk:
+  chicken.setAttribute('random-walk', 'speed: 0.2; range: 10');
+
+  scene1.appendChild(chicken);
+}
+
+    
+</script>
+
 
     
 
