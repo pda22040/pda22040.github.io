@@ -42,52 +42,41 @@
 <script>
 // Component για έλεγχο αν η κάμερα κοιτάει κοτόπουλο
   AFRAME.registerComponent('look-at-chicken-toggle', {
-    schema: {
-      chickensSelector: {type: 'string', default: '[gltf-model="#baby_chicken"]'},
-      farmhouseSelector: {type: 'string', default: '#littleFarmhouse'},
-      thresholdAngle: {type: 'number', default: 0.1}  // σε radians (~5.7 μοίρες)
-    },
-    init: function() {
-      this.camera = this.el.getObject3D('camera');
-      this.chickens = document.querySelectorAll(this.data.chickensSelector);
-      this.farmhouse = document.querySelector(this.data.farmhouseSelector);
-    },
-    tick: function() {
-      if (!this.camera || !this.farmhouse) return;
+  schema: {
+    chickensSelector: {type: 'string', default: '[gltf-model="#baby_chicken"]'},
+    thresholdAngle: {type: 'number', default: 0.1}  // σε radians (~5.7 μοίρες)
+  },
+  init: function() {
+    this.camera = this.el.getObject3D('camera');
+    this.chickens = document.querySelectorAll(this.data.chickensSelector);
+  },
+  tick: function() {
+    if (!this.camera) return;
 
-      let anyChickenLookedAt = false;
+    this.chickens.forEach(chicken => {
+      if (!chicken.object3D) return;
 
-      this.chickens.forEach(chicken => {
-        if (!chicken.object3D) return;
+      const chickenPos = new THREE.Vector3();
+      chicken.object3D.getWorldPosition(chickenPos);
 
-        const chickenPos = new THREE.Vector3();
-        chicken.object3D.getWorldPosition(chickenPos);
+      const camPos = new THREE.Vector3();
+      this.camera.getWorldPosition(camPos);
 
-        const camPos = new THREE.Vector3();
-        this.camera.getWorldPosition(camPos);
+      const camDir = new THREE.Vector3();
+      this.camera.getWorldDirection(camDir);
 
-        const camDir = new THREE.Vector3();
-        this.camera.getWorldDirection(camDir);
+      const camToChicken = chickenPos.clone().sub(camPos).normalize();
 
-        const camToChicken = chickenPos.clone().sub(camPos).normalize();
+      const angle = camDir.angleTo(camToChicken);
 
-        const angle = camDir.angleTo(camToChicken);
-
-        if (angle < this.data.thresholdAngle) {
-          anyChickenLookedAt = true;
-          chicken.setAttribute('visible', false);
-        } else {
-          chicken.setAttribute('visible', true);
-        }
-      });
-
-      if (anyChickenLookedAt) {
-        this.farmhouse.setAttribute('visible', true);
+      if (angle < this.data.thresholdAngle) {
+        chicken.setAttribute('visible', false);
       } else {
-        this.farmhouse.setAttribute('visible', false);
+        chicken.setAttribute('visible', true);
       }
-    }
-  });
+    });
+  }
+});
 
     
   AFRAME.registerComponent('random-walk', {
