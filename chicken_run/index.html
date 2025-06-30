@@ -41,7 +41,7 @@
 <script>
   AFRAME.registerComponent('random-walk', {
     schema: {
-      speed: { type: 'number', default: 0.2 },
+      speed: { type: 'number', default: 0.5 },
       range: { type: 'number', default: 10 }
     },
     init: function () {
@@ -51,34 +51,38 @@
     tick: function (time, delta) {
       const el = this.el.object3D;
       const pos = el.position;
-      const dir = new THREE.Vector3().subVectors(this.target, pos).normalize();
-      const dist = pos.distanceTo(this.target);
-      if (dist < 0.5) this.chooseNewTarget();
-      el.translateOnAxis(dir, this.data.speed * delta / 1000);
-      el.lookAt(this.target);
+      const dir = new THREE.Vector3().subVectors(this.target, pos);
+      const dist = dir.length();
+
+      if (dist < 0.1) {
+        this.chooseNewTarget();
+      } else {
+        dir.normalize();
+        el.position.addScaledVector(dir, this.data.speed * delta / 1000);
+        el.lookAt(this.target);
+      }
     },
     chooseNewTarget: function () {
       const current = this.el.object3D.position;
       const x = current.x + (Math.random() * this.data.range - this.data.range / 2);
       const z = current.z + (Math.random() * this.data.range - this.data.range / 2);
-      this.target.set(x, 0, z);
+      this.target.set(x, current.y, z);
     }
   });
 
-  // ΜΕΤΑ την A-Scene
   window.addEventListener('load', () => {
     const scene1 = document.getElementById('s1');
 
     for (let i = 0; i < 5; i++) {
       const chicken = document.createElement('a-entity');
-      const x = Math.random() * -200 - 200;
-      const z = Math.random() * -200 - 200;
+      const x = Math.random() * 20 - 10;
+      const z = Math.random() * 20 - 10;
 
       chicken.setAttribute('gltf-model', '#baby_chicken');
       chicken.setAttribute('position', `${x} 0 ${z}`);
       chicken.setAttribute('scale', '0.1 0.1 0.1');
       chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
-      chicken.setAttribute('random-walk', 'speed: 0.2; range: 10');
+      chicken.setAttribute('random-walk', 'speed: 0.5; range: 5');
 
       scene1.appendChild(chicken);
     }
