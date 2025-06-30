@@ -24,15 +24,11 @@
       <a-scene id="s1" cursor="rayOrigin: mouse" background="color:LightBlue" shadow="type: pcfsoft" ondblclick="this.requestFullscreen();"embedded>
           <a-camera> <a-cursor fuse="true" fuse-timeout="5000"></a-cursor> <a-entity id="uiText" position="0 -0.3 -1"
             text="value: Κότες μαζεμένες: 0/5; align: center; color: black; width: 3"></a-entity></a-camera>
+          <a-entity id="uiText" position="0 2 -3" text="value: Κότες μαζεμένες: 0/5; align: center; color: black;"></a-entity>
           <a-light type="ambient" color="#ccc"></a-light>
           <a-light type="directional" position="0 10 0" intensity="0.5"></a-light>
           <a-plane color="DarkOliveGreen" height="500" width="500" rotation="-90 0 0" metalness="0" shadow></a-plane>
           <a-sphere color="GoldenRod" radius="500" position="0 5000 0" material="fog: false"></a-sphere>
-          <a-entity id="uiText"
-          position="0 0 -2"
-          text="value: Κότες μαζεμένες: 0/5; align: center; color: black; width: 4"
-          position="0 0 -2">
-          </a-entity>
           <a-assets>
               <a-asset-item id="spruce_tree" src="spruce_tree.glb"></a-asset-item>
               <a-asset-item id="little_farmhouse" src="little_farmhouse.glb"></a-asset-item>
@@ -42,6 +38,20 @@
           <a-entity gltf-model="#little_farmhouse" scale="0.5 0.5 0.5" position="1 1 1"></a-entity>
         </a-scene>
     </div>
+
+    <script>
+  let totalChickens = 5;
+  let caughtCount = 0;
+
+  const updateCounter = () => {
+    const uiText = document.getElementById('uiText');
+    if (caughtCount >= totalChickens) {
+      uiText.setAttribute('text', 'value: Όλες οι κότες μαζεύτηκαν! 🐔; align: center; color: darkgreen;');
+    } else {
+      uiText.setAttribute('text', `value: Κότες μαζεμένες: ${caughtCount}/${totalChickens}; align: center; color: black;`);
+    }
+  };
+</script>
 
     
 <script>
@@ -85,6 +95,11 @@
       chicken.setAttribute('scale', '0.1 0.1 0.1');
       chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
       chicken.setAttribute('random-walk', 'speed: 0.2; range: 10');
+      chicken.addEventListener('click', () => {
+      caughtCount++;
+      updateCounter();
+      chicken.setAttribute('visible', 'false');
+    });
 
       scene1.appendChild(chicken);
     }
