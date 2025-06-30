@@ -37,32 +37,53 @@
 
 
  <script>
-  var scene1 = document.getElementById('s1');
+  AFRAME.registerComponent('random-walk', {
+    schema: {
+      speed: { type: 'number', default: 0.5 },
+      range: { type: 'number', default: 50 }
+    },
+    init: function () {
+      this.target = new THREE.Vector3();
+      this.chooseNewTarget();
+    },
+    tick: function (time, delta) {
+      const el = this.el.object3D;
+      const pos = el.position;
+      const dir = new THREE.Vector3().subVectors(this.target, pos).normalize();
+      const dist = pos.distanceTo(this.target);
 
-  // Συντεταγμένες του farmhouse
-  const baseX = 1;
-  const baseY = 0;
-  const baseZ = 1;
+      if (dist < 1) this.chooseNewTarget();
 
-  // Φτιάχνουμε 5 κοτούλες μπροστά από το σπίτι
-  for (let i = 0; i < 5; i++) {
-    const baby_chicken = document.createElement('a-entity');
+      el.translateOnAxis(dir, this.data.speed * delta / 1000);
+      el.lookAt(this.target);
+    },
+    chooseNewTarget: function () {
+      const x = Math.random() * this.data.range - this.data.range / 2;
+      const z = Math.random() * this.data.range - this.data.range / 2;
+      this.target.set(x, 0, z);
+    }
+  });
 
-    const offsetX = (i - 2) * 2; // -4, -2, 0, 2, 4
-    const posX = baseX + offsetX;
-    const posZ = baseZ + 3;
+  // Δημιουργία 5 κοτοπουλιών σε τυχαία σημεία
+  window.onload = function () {
+    const scene1 = document.getElementById('s1');
 
-    baby_chicken.setAttribute('gltf-model', '#baby_chicken');
-    baby_chicken.setAttribute('position', `${posX} 0 ${posZ}`);
-    baby_chicken.setAttribute('scale', '0.3 0.3 0.3');
-    baby_chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
-    baby_chicken.setAttribute('random-walk', ''); // αν δεν θες να κινούνται, μπορείς να το βγάλεις
+    for (let i = 0; i < 5; i++) {
+      const chicken = document.createElement('a-entity');
+      const x = Math.random() * 400 - 200;
+      const z = Math.random() * 400 - 200;
 
-    scene1.appendChild(baby_chicken);
-  }
+      chicken.setAttribute('gltf-model', '#baby_chicken');
+      chicken.setAttribute('position', `${x} 0 ${z}`);
+      chicken.setAttribute('scale', '0.3 0.3 0.3');
+      chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
+      chicken.setAttribute('random-walk', '');
 
-  // Τα υπόλοιπα όπως έχεις: trees, flowers
+      scene1.appendChild(chicken);
+    }
+  };
 </script>
+
     
 
 
