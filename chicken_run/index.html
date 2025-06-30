@@ -22,9 +22,7 @@
    
     <!-- ΕΔΩ ΠΕΡΙΓΡΑΦΩ ΤΗ ΣΚΗΝΗ -->
       <a-scene id="s1" cursor="rayOrigin: mouse" background="color:LightBlue" shadow="type: pcfsoft" ondblclick="this.requestFullscreen();"embedded>
-          <a-camera> <a-cursor fuse="true" fuse-timeout="5000"></a-cursor> <a-entity id="uiText" position="0 -0.3 -1"
-            text="value: Κότες μαζεμένες: 0/5; align: center; color: black; width: 3"></a-entity></a-camera>
-          <a-entity id="uiText" position="0 2 -3" text="value: Κότες μαζεμένες: 0/5; align: center; color: black;"></a-entity>
+          <a-camera> <a-cursor fuse="true" fuse-timeout="5000"></a-cursor>
           <a-light type="ambient" color="#ccc"></a-light>
           <a-light type="directional" position="0 10 0" intensity="0.5"></a-light>
           <a-plane color="DarkOliveGreen" height="500" width="500" rotation="-90 0 0" metalness="0" shadow></a-plane>
@@ -95,11 +93,6 @@
       chicken.setAttribute('scale', '0.1 0.1 0.1');
       chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
       chicken.setAttribute('random-walk', 'speed: 0.2; range: 10');
-      chicken.addEventListener('click', () => {
-      caughtCount++;
-      updateCounter();
-      chicken.setAttribute('visible', 'false');
-    });
 
       scene1.appendChild(chicken);
     }
