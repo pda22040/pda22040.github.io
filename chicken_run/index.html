@@ -41,18 +41,20 @@
     
 <script>
 // Component για έλεγχο αν η κάμερα κοιτάει κοτόπουλο
-  AFRAME.registerComponent('look-at-chicken-toggle', {
+ AFRAME.registerComponent('look-at-chicken-toggle', {
   schema: {
-    chickensSelector: {type: 'string', default: '[gltf-model="#baby_chicken"]'},
+    chickensSelector: {type: 'string', default: '.chicken'},
     thresholdAngle: {type: 'number', default: 0.1}  // σε radians (~5.7 μοίρες)
   },
   init: function() {
-    this.camera = this.el.getObject3D('camera');
+    this.camera = null;
     this.chickens = document.querySelectorAll(this.data.chickensSelector);
   },
   tick: function() {
-    if (!this.camera) return;
-
+    if (!this.camera) {
+      this.camera = this.el.getObject3D('camera');
+      if (!this.camera) return;
+    }
     this.chickens.forEach(chicken => {
       if (!chicken.object3D) return;
 
@@ -77,7 +79,6 @@
     });
   }
 });
-
     
   AFRAME.registerComponent('random-walk', {
     schema: {
@@ -110,23 +111,24 @@
     }
   });
 
-  window.addEventListener('load', () => {
-    const scene1 = document.getElementById('s1');
+ window.addEventListener('load', () => {
+  const scene1 = document.getElementById('s1');
 
-    for (let i = 0; i < 10; i++) {
-      const chicken = document.createElement('a-entity');
-      const x = Math.random() * 20 - 10;
-      const z = Math.random() * 20 - 10;
+  for (let i = 0; i < 10; i++) {
+    const chicken = document.createElement('a-entity');
+    const x = Math.random() * 20 - 10;
+    const z = Math.random() * 20 - 10;
 
-      chicken.setAttribute('gltf-model', '#baby_chicken');
-      chicken.setAttribute('position', `${x} 0 ${z}`);
-      chicken.setAttribute('scale', '0.1 0.1 0.1');
-      chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
-      chicken.setAttribute('random-walk', 'speed: 0.5; range: 5');
+    chicken.setAttribute('gltf-model', '#baby_chicken');
+    chicken.setAttribute('class', 'chicken');  // **προσθήκη class**
+    chicken.setAttribute('position', `${x} 0 ${z}`);
+    chicken.setAttribute('scale', '0.1 0.1 0.1');
+    chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
+    chicken.setAttribute('random-walk', 'speed: 0.5; range: 5');
 
-      scene1.appendChild(chicken);
-    }
-  });    
+    scene1.appendChild(chicken);
+  }
+});
     
     // ΕΔΩ ΔΗΜΙΟΥΡΓΩ ΠΟΛΛΑΠΛΑ ΑΝΤΙΓΡΑΦΑ ΜΙΑΣ ΟΝΤΟΤΗΤΑΣ
         var scene1 = document.getElementById('s1');
