@@ -35,7 +35,30 @@
         </a-scene>
     </div>
 
+<script>
 
+for (let i = 0; i < 5; i++) {
+  const chicken = document.createElement('a-entity');
+  const x = Math.random() * 400 - 200;
+  const z = Math.random() * 400 - 200;
+
+  chicken.setAttribute('gltf-model', '#baby_chicken');
+  chicken.setAttribute('position', `${x} 0 ${z}`);
+  chicken.setAttribute('scale', '0.3 0.3 0.3');
+  chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
+  
+  chicken.setAttribute('random-walk', 'speed: 0.2; range: 10');
+
+  scene1.appendChild(chicken);
+}
+
+    
+</script>
+
+
+
+
+    
  <script>
   AFRAME.registerComponent('random-walk', {
     schema: {
@@ -66,31 +89,6 @@
     }
   });
 </script>
-
-<script>
-
-for (let i = 0; i < 5; i++) {
-  const chicken = document.createElement('a-entity');
-  const x = Math.random() * 400 - 200;
-  const z = Math.random() * 400 - 200;
-
-  chicken.setAttribute('gltf-model', '#baby_chicken');
-  chicken.setAttribute('position', `${x} 0 ${z}`);
-  chicken.setAttribute('scale', '0.3 0.3 0.3');
-  chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
-  
-  // 👉 Βάλε ΕΔΩ το random-walk:
-  chicken.setAttribute('random-walk', 'speed: 0.2; range: 10');
-
-  scene1.appendChild(chicken);
-}
-
-    
-</script>
-
-
-    
-
 
     
     <script>     
