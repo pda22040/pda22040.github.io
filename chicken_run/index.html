@@ -37,20 +37,6 @@
         </a-scene>
     </div>
 
-    <script>
-  let totalChickens = 5;
-  let caughtCount = 0;
-
-  const updateCounter = () => {
-    const uiText = document.getElementById('uiText');
-    if (caughtCount >= totalChickens) {
-      uiText.setAttribute('text', 'value: Όλες οι κότες μαζεύτηκαν! 🐔; align: center; color: darkgreen;');
-    } else {
-      uiText.setAttribute('text', `value: Κότες μαζεμένες: ${caughtCount}/${totalChickens}; align: center; color: black;`);
-    }
-  };
-</script>
-
     
 <script>
   AFRAME.registerComponent('random-walk', {
@@ -85,8 +71,8 @@
 
     for (let i = 0; i < 5; i++) {
       const chicken = document.createElement('a-entity');
-      const x = Math.random() * 400 - 200;
-      const z = Math.random() * 400 - 200;
+      const x = Math.random() * 20 - 10;
+      const z = Math.random() * 20 - 10;
 
       chicken.setAttribute('gltf-model', '#baby_chicken');
       chicken.setAttribute('position', `${x} 0 ${z}`);
