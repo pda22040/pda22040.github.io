@@ -115,7 +115,7 @@ AFRAME.registerComponent('removing', {
     }
   });
 
- window.addEventListener('load', () => {
+window.addEventListener('load', () => {
   const scene1 = document.getElementById('s1');
 
   for (let i = 0; i < 10; i++) {
@@ -124,12 +124,12 @@ AFRAME.registerComponent('removing', {
     const z = Math.random() * 20 - 10;
 
     chicken.setAttribute('gltf-model', '#baby_chicken');
-    chicken.setAttribute('class', 'chicken');  // **προσθήκη class**
-    chicken.setAttribute('position', ${x} 0 ${z});
+    chicken.setAttribute('class', 'chicken');
+    chicken.setAttribute('position', x + ' 0 ' + z);
     chicken.setAttribute('scale', '0.1 0.1 0.1');
     chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
     chicken.setAttribute('random-walk', 'speed: 0.5; range: 5');
-    chicken.setAttribute('removing', '');  
+    chicken.setAttribute('removing', '');
     chicken.setAttribute('geometry', 'primitive: box');
     chicken.setAttribute('material', 'opacity: 0; transparent: true');
 
