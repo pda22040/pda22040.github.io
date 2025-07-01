@@ -10,12 +10,12 @@ AFRAME.registerComponent('removing', {
 
     el.addEventListener('click', () => {
       if (el.classList.contains('chicken')) {
-        const savedCount = document.querySelectorAll('[data-saved="true"]').length;
-        el.setAttribute('position', { 
-          x: 12 + savedCount * 0.8,
-          y: 0, 
-          z: 20 + savedCount * 0.5
-        });
+       const savedCount = document.querySelectorAll('[data-saved="true"]').length;
+el.setAttribute('position', { 
+  x: 12 + savedCount * 1.2 + (Math.random() - 0.5),  // + λίγο τυχαίο offset
+  y: 0, 
+  z: 20 + savedCount * 0.8 + (Math.random() - 0.5)
+});
         el.setAttribute('random-walk', 'speed: 0');
         el.setAttribute('animation-mixer', 'pause: true');
         el.removeAttribute('animation-mixer');
