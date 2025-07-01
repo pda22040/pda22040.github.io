@@ -9,10 +9,13 @@ AFRAME.registerComponent('removing', {
     const el = this.el;
 
     el.addEventListener('click', () => {
-      // Έλεγξε αν είναι κοτόπουλο
       if (el.classList.contains('chicken')) {
-        const posOffset = 0.5 * document.querySelectorAll('[data-saved="true"]').length;
-        el.setAttribute('position', { x: 0,5 + posOffset, y: 0, z: 5 });
+        const savedCount = document.querySelectorAll('[data-saved="true"]').length;
+        el.setAttribute('position', { 
+          x: 0.5 + savedCount * 0.4,
+          y: 0, 
+          z: 3 + savedCount * 0.2 
+        });
         el.setAttribute('random-walk', 'speed: 0');
         el.setAttribute('data-saved', 'true');
       }
