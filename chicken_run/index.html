@@ -12,7 +12,7 @@ AFRAME.registerComponent('removing', {
       if (el.classList.contains('chicken')) {
         const savedCount = document.querySelectorAll('[data-saved="true"]').length;
         el.setAttribute('position', { 
-          x: 20 + savedCount * 0.4,
+          x: 15 + savedCount * 0.4,
           y: 0, 
           z: 20 + savedCount * 0.2 
         });
