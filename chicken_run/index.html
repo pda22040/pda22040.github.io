@@ -69,13 +69,15 @@ AFRAME.registerComponent('removing', {
               <a-asset-item id="baby_chicken" src="baby_chicken.glb"></a-asset-item>
               </a-assets>
 <!-- Camera -->        
-          <a-camera> <a-cursor fuse="true" fuse-timeout="5000"></a-cursor></a-camera>
+         <a-camera kinematic-body position="0 1.6 0" wasd-controls look-controls>
+  <a-cursor fuse="true" fuse-timeout="5000"></a-cursor>
+</a-camera>
 
 <!-- Lights -->      
-          <a-light type="ambient" color="#556677" intensity="0.7"></a-light>
-          <a-light type="directional" color="#ffddaa" intensity="1.2" position="10 15 10" cast-shadow="true"></a-light>
+          <a-light type="ambient" color="#556677" intensity="0.7"> </a-light>
+          <a-light type="directional" color="#ffddaa" intensity="1.2" position="10 15 10" cast-shadow="true"> </a-light>
         
-          <a-entity gltf-model="#little_farmhouse" scale="0.5 0.5 0.5" position="1 1 1"></a-entity>
+         <a-entity gltf-model="#little_farmhouse" scale="0.5 0.5 0.5" position="1 1 1" static-body> </a-entity>
         </a-scene>
     </div>
 
@@ -132,6 +134,8 @@ AFRAME.registerComponent('removing', {
     chicken.setAttribute('removing', '');  
     chicken.setAttribute('geometry', 'primitive: box');
     chicken.setAttribute('material', 'opacity: 0; transparent: true');
+    chicken.setAttribute('dynamic-body', 'shape: box; mass: 1');
+      
 
     scene1.appendChild(chicken);
   }
