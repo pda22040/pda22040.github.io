@@ -117,6 +117,8 @@ AFRAME.registerComponent('removing', {
     chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
     chicken.setAttribute('random-walk', 'speed: 0.5; range: 5');
     chicken.setAttribute('removing', '');  
+    chicken.setAttribute('geometry', 'primitive: box');
+    chicken.setAttribute('material', 'opacity: 0; transparent: true');
 
     scene1.appendChild(chicken);
   }
