@@ -8,19 +8,11 @@ AFRAME.registerComponent('removing', {
   init: function () {
     const el = this.el;
 
-    el.addEventListener('mouseenter', () => {
-      el.setAttribute('color', 'red');
-    });
-
-    el.addEventListener('mouseleave', () => {
-      el.setAttribute('color', 'firebrick');
-    });
-
     el.addEventListener('click', () => {
       // Έλεγξε αν είναι κοτόπουλο
       if (el.classList.contains('chicken')) {
         const posOffset = 0.5 * document.querySelectorAll('[data-saved="true"]').length;
-        el.setAttribute('position', { x: 1 + posOffset, y: 0, z: 2 });
+        el.setAttribute('position', { x: 0,5 + posOffset, y: 0, z: 5 });
         el.setAttribute('random-walk', 'speed: 0');
         el.setAttribute('data-saved', 'true');
       }
