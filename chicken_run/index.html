@@ -135,7 +135,7 @@ window.addEventListener('load', () => {
     
     // ΕΔΩ ΔΗΜΙΟΥΡΓΩ ΠΟΛΛΑΠΛΑ ΑΝΤΙΓΡΑΦΑ ΜΙΑΣ ΟΝΤΟΤΗΤΑΣ
         var scene1 = document.getElementById('s1');
-          for (var i = 0; i < 400; i++) {
+          for (var i = 0; i < 300; i++) {
   var x, z;
 
   // Επανάλαβε μέχρι να βρεις θέση ΕΚΤΟΣ no-spawn περιοχής
@@ -153,19 +153,26 @@ window.addEventListener('load', () => {
   tree.setAttribute('rotation', '0 ' + r + ' 0');
   scene1.appendChild(tree);
 }
-      for (var i = 0; i < 400; i++) {
-      var flowers = document.createElement('a-entity');
-      var x = Math.random() * 200 - 100;
-      var z = Math.random() * 200 - 100;
-      var s = 0.03;
-      var r = Math.random() * 180 - 90;
-      flowers.setAttribute('gltf-model', '#colored_flower');
-      flowers.setAttribute('position', x + ' 0 ' + z);
-      flowers.setAttribute('scale', s + ' ' + s + ' ' + s);
-      flowers.setAttribute('rotation', '0 ' + r + ' 0');
-      flowers.setAttribute('shadow', 'receive: false');  
-      scene1.appendChild(flowers);
-      }
+     for (var i = 0; i < 300; i++) {
+  var x, z;
+
+  // αποφυγή περιοχής γύρω από το σπίτι
+  do {
+    x = Math.random() * 200 - 100;
+    z = Math.random() * 200 - 100;
+  } while (x > -10 && x < 10 && z > -10 && z < 10);
+
+  var flowers = document.createElement('a-entity');
+  var s = 0.03;
+  var r = Math.random() * 180 - 90;
+  flowers.setAttribute('gltf-model', '#colored_flower');
+  flowers.setAttribute('position', x + ' 0 ' + z);
+  flowers.setAttribute('scale', s + ' ' + s + ' ' + s);
+  flowers.setAttribute('rotation', '0 ' + r + ' 0');
+  flowers.setAttribute('shadow', 'receive: false');
+  scene1.appendChild(flowers);
+}
+
     </script>
     <hr />
     <p><strong>Οδηγίες:</strong>...</p>
