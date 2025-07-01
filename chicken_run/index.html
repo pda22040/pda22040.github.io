@@ -10,47 +10,46 @@ AFRAME.registerComponent('removing', {
 
     const sound = el.querySelector('a-sound');
       
-     el.addEventListener('click', () => {
-      if (el.classList.contains('chicken')) {
+    el.addEventListener('click', () => {
+      if (el.classList.contains('chicken') && el.getAttribute('data-saved') !== 'true') {
         if (sound) {
           sound.components.sound.playSound();
         }
-          
+        
+        el.setAttribute('data-saved', 'true');  // Θέτουμε πρώτα το saved flag
+
         const savedCount = document.querySelectorAll('[data-saved="true"]').length;
+
+        // Ενημέρωση σκορ 3D μέσα στην κάμερα
+        const score3d = document.getElementById('score3d');
+        if(score3d) {
+          score3d.setAttribute('value', savedCount + ' / 15');
+        }
+
         const baseX = 3;
         const baseZ = 10;
         const rowLength = 5;
         const spacing = 1.5;
 
-        const row = Math.floor(savedCount / rowLength);
-        const col = savedCount % rowLength;
+        const row = Math.floor((savedCount - 1) / rowLength);
+        const col = (savedCount - 1) % rowLength;
 
         const randomOffsetX = (Math.random() - 0.5);
         const randomOffsetZ = (Math.random() - 0.5);
 
-          el.setAttribute('position', { 
+        el.setAttribute('position', { 
           x: baseX + col * spacing + randomOffsetX,
           y: 0,
           z: baseZ + row * spacing + randomOffsetZ
         });
 
         el.setAttribute('random-walk', 'speed: 0');
-        el.removeAttribute('animation-mixer'); 
-        el.setAttribute('data-saved', 'true');
-
-          // Ενημέρωση σκορ
-        const scoreboard = document.getElementById('scoreboard');
-const score3d = document.getElementById('score3d');
-
-const newCount = document.querySelectorAll('[data-saved="true"]').length;
-
-scoreboard.textContent = `Chicken: ${newCount}`;
-score3d.setAttribute('value', savedCount + ' / 15');
+        el.removeAttribute('animation-mixer');
       }
     });
   }
 });
-</script>
+
 
         
 <div id="scoreboard">Chicken: 0/15 </div>
