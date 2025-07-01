@@ -144,9 +144,9 @@ AFRAME.registerComponent('removing', {
   var z = Math.random() * 100 - 50;
   var dx = x - 1;
   var dz = z - 1;
-  if (dx*dx + dz*dz < 20*20) { // αν είναι μέσα σε ακτίνα 10, παράλειψε
-    continue;
-  }
+  if (x > -14 && x < 16 && z > -14 && z < 16) {
+  continue;  // μέσα σε πλαίσιο 30x30
+}
   var tree = document.createElement('a-entity');
   var s = 0.01;
   var r = Math.random() * 180 - 90;
