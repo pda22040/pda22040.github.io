@@ -166,23 +166,27 @@ scene1.appendChild(chicken);
       }
     
 // Flowers
- for (var i = 0; i < 300; i++) {
-  var x, z;
-  do {
-    x = Math.random() * 200 - 100;
-    z = Math.random() * 200 - 100;
-  } while (x > -10 && x < 10 && z > -10 && z < 10);
+ var treeCount = 300;
+      var innerRadius = 20;
+      var outerRadius = 200;
 
-  var flowers = document.createElement('a-entity');
-  var s = 0.03;
-  var r = Math.random() * 180 - 90;
-  flowers.setAttribute('gltf-model', '#colored_flower');
-  flowers.setAttribute('position', x + ' 0 ' + z);
-  flowers.setAttribute('scale', s + ' ' + s + ' ' + s);
-  flowers.setAttribute('rotation', '0 ' + r + ' 0');
-  flowers.setAttribute('shadow', 'receive: false');
-  scene1.appendChild(flowers);
- }
+      for (var i = 0; i < flowersCount; i++) {
+        var flowers = document.createElement('a-entity');
+        var angle = Math.random() * 2 * Math.PI;
+        var radius = innerRadius + Math.random() * (outerRadius - innerRadius);
+        var x = Math.cos(angle) * radius;
+        var z = Math.sin(angle) * radius;
+        var s = 0.03;
+        var r = Math.random() * 180 - 90;
+
+        flowers.setAttribute('gltf-model', '#colored_flower');
+        flowers.setAttribute('position', x + ' 0 ' + z);
+        flowers.setAttribute('scale', s + ' ' + s + ' ' + s);
+        flowers.setAttribute('rotation', '0 ' + r + ' 0');
+        flowers.setAttribute('shadow', 'receive: false');
+
+        scene1.appendChild(flowers);
+      }
 });
     
     </script>
