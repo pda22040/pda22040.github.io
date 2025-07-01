@@ -143,22 +143,27 @@ scene1.appendChild(chicken);
   }
     
 // Trees
-   for (var i = 0; i < 300; i++) {
-  var x, z;
-  do {
-    x = Math.random() * 200 - 100;
-    z = Math.random() * 200 - 100;
-  } while (x > -10 && x < 10 && z > -10 && z < 10);
+      var treeCount = 300;
+      var innerRadius = 20;
+      var outerRadius = 200;
 
-  var tree = document.createElement('a-entity');
-  var s = 0.01;
-  var r = Math.random() * 180 - 90;
-  tree.setAttribute('gltf-model', '#spruce_tree');
-  tree.setAttribute('position', x + ' 0 ' + z);
-  tree.setAttribute('scale', s + ' ' + s + ' ' + s);
-  tree.setAttribute('rotation', '0 ' + r + ' 0');
-  scene1.appendChild(tree);
-}
+      for (var i = 0; i < treeCount; i++) {
+        var tree = document.createElement('a-entity');
+        var angle = Math.random() * 2 * Math.PI;
+        var radius = innerRadius + Math.random() * (outerRadius - innerRadius);
+        var x = Math.cos(angle) * radius;
+        var z = Math.sin(angle) * radius;
+        var s = 0.1;
+        var r = Math.random() * 180 - 90;
+
+        tree.setAttribute('gltf-model', '#spruce_tree');
+        tree.setAttribute('position', x + ' 0 ' + z);
+        tree.setAttribute('scale', s + ' ' + s + ' ' + s);
+        tree.setAttribute('rotation', '0 ' + r + ' 0');
+        tree.setAttribute('shadow', 'receive: false');
+
+        scene1.appendChild(tree);
+      }
     
 // Flowers
  for (var i = 0; i < 300; i++) {
