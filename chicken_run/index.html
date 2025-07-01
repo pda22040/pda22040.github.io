@@ -41,76 +41,64 @@
 // Component για έλεγχο αν η κάμερα κοιτάει κοτόπουλο
 AFRAME.registerComponent('look-at-chicken-toggle', {
   schema: {
-    chickensSelector: {type: 'string', default: '.chicken'},
-    thresholdAngle: {type: 'number', default: 0.1},  // σε radians (~5.7 μοίρες)
-    lookDuration: {type: 'number', default: 2000}  // ms για να ενεργοποιηθεί το κοτέτσι
+    chickensSelector: { type: 'string', default: '.chicken' },
+    thresholdAngle: { type: 'number', default: 0.1 },
+    lookDuration: { type: 'number', default: 2000 } // 2 sec
   },
-  init: function() {
+  init: function () {
     this.camera = null;
-    this.chickens = document.querySelectorAll(this.data.chickensSelector);
-    this.lookStart = null;
-    this.isLooking = false;
-    this.coopEntity = null;
-
-    // Δημιουργούμε το κοτέτσι αλλά το κάνουμε αόρατο αρχικά
-    this.coopEntity = document.createElement('a-entity');
-    this.coopEntity.setAttribute('gltf-model', '#little_farmhouse');
-    this.coopEntity.setAttribute('scale', '0.5 0.5 0.5');
-    this.coopEntity.setAttribute('position', '1 0 1');  // πχ θέση κοτετσιού (μπορείς να την αλλάξεις)
-    this.coopEntity.setAttribute('visible', 'false');
-    this.el.sceneEl.appendChild(this.coopEntity);
+    this.chickens = Array.from(document.querySelectorAll(this.data.chickensSelector));
+    this.lookTimers = new Map(); // για κάθε κοτόπουλο ξεχωριστά
+    this.farmhousePos = new THREE.Vector3(1, 0, 1); // θέση μπροστά στο κοτέτσι
+    this.offset = 0; // για να μη μπλέκονται μπροστά στο κοτέτσι
   },
-  tick: function(time, delta) {
+  tick: function (time, delta) {
     if (!this.camera) {
       this.camera = this.el.getObject3D('camera');
       if (!this.camera) return;
     }
 
-    let lookingAtChicken = false;
+    const camPos = new THREE.Vector3();
+    this.camera.getWorldPosition(camPos);
 
-    this.chickens.forEach(chicken => {
-      if (!chicken.object3D) return;
+    const camDir = new THREE.Vector3();
+    this.camera.getWorldDirection(camDir);
+
+    this.chickens.forEach((chicken, index) => {
+      if (!chicken.object3D || chicken.dataset.saved === "true") return;
 
       const chickenPos = new THREE.Vector3();
       chicken.object3D.getWorldPosition(chickenPos);
 
-      const camPos = new THREE.Vector3();
-      this.camera.getWorldPosition(camPos);
-
-      const camDir = new THREE.Vector3();
-      this.camera.getWorldDirection(camDir);
-
       const camToChicken = chickenPos.clone().sub(camPos).normalize();
-
       const angle = camDir.angleTo(camToChicken);
 
       if (angle < this.data.thresholdAngle) {
-        // Κοιτάμε κοτόπουλο
-        lookingAtChicken = true;
-        chicken.setAttribute('visible', false);
+        // Αν κοιτάμε το κοτόπουλο
+        if (!this.lookTimers.has(chicken)) {
+          this.lookTimers.set(chicken, time);
+        } else {
+          const startTime = this.lookTimers.get(chicken);
+          if (time - startTime >= this.data.lookDuration) {
+            // Έχουμε κοιτάξει αρκετά - "μεταφορά" στο κοτέτσι
+            chicken.setAttribute('position', {
+              x: this.farmhousePos.x + this.offset,
+              y: this.farmhousePos.y,
+              z: this.farmhousePos.z + 1
+            });
+            chicken.setAttribute('random-walk', 'speed: 0;'); // σταματάει να περπατά
+            chicken.dataset.saved = "true";
+            this.offset += 0.5; // για να μην επικαλύπτονται τα κοτόπουλα
+          }
+        }
       } else {
-        chicken.setAttribute('visible', true);
+        // Δεν κοιτάμε πια
+        this.lookTimers.delete(chicken);
       }
     });
-
-    if (lookingAtChicken) {
-      if (!this.isLooking) {
-        this.isLooking = true;
-        this.lookStart = time;
-      } else {
-        // Εάν κοιτάμε για πάνω από 2 δευτ.
-        if (time - this.lookStart >= this.data.lookDuration) {
-          this.coopEntity.setAttribute('visible', 'true');
-        }
-      }
-    } else {
-      // Δεν κοιτάμε κοτόπουλα: μηδενίζουμε τον timer & κρύβουμε το κοτέτσι
-      this.isLooking = false;
-      this.lookStart = null;
-      this.coopEntity.setAttribute('visible', 'false');
-    }
   }
 });
+
     
   AFRAME.registerComponent('random-walk', {
     schema: {
