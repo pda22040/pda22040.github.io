@@ -4,61 +4,25 @@
         <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
         
     <script>
-AFRAME.registerComponent('look-at-chicken-toggle', {
-  schema: {
-    chickensSelector: { type: 'string', default: '.chicken' },
-    thresholdAngle: { type: 'number', default: 0.1 },
-    lookDuration: { type: 'number', default: 2000 } // 2 sec
-  },
+AFRAME.registerComponent('removing', {
   init: function () {
-    this.camera = null;
-    this.chickens = Array.from(document.querySelectorAll(this.data.chickensSelector));
-    this.lookTimers = new Map(); // για κάθε κοτόπουλο ξεχωριστά
-    this.farmhousePos = new THREE.Vector3(1, 0, 1); // θέση μπροστά στο κοτέτσι
-    this.offset = 0; // για να μη μπλέκονται μπροστά στο κοτέτσι
-  },
-  tick: function (time, delta) {
-    if (!this.camera) {
-      this.camera = this.el.sceneEl.camera;
-      if (!this.camera) return;
-    }
+    const el = this.el;
 
-    const camPos = new THREE.Vector3();
-    this.camera.getWorldPosition(camPos);
+    el.addEventListener('mouseenter', () => {
+      el.setAttribute('color', 'red');
+    });
 
-    const camDir = new THREE.Vector3();
-    this.camera.getWorldDirection(camDir);
+    el.addEventListener('mouseleave', () => {
+      el.setAttribute('color', 'firebrick');
+    });
 
-    this.chickens.forEach((chicken, index) => {
-      if (!chicken.object3D || chicken.dataset.saved === "true") return;
-
-      const chickenPos = new THREE.Vector3();
-      chicken.object3D.getWorldPosition(chickenPos);
-
-      const camToChicken = chickenPos.clone().sub(camPos).normalize();
-      const angle = camDir.angleTo(camToChicken);
-
-      if (angle < this.data.thresholdAngle) {
-        // Αν κοιτάμε το κοτόπουλο
-        if (!this.lookTimers.has(chicken)) {
-          this.lookTimers.set(chicken, time);
-        } else {
-          const startTime = this.lookTimers.get(chicken);
-          if (time - startTime >= this.data.lookDuration) {
-            // Έχουμε κοιτάξει αρκετά - "μεταφορά" στο κοτέτσι
-            chicken.setAttribute('position', {
-              x: this.farmhousePos.x + this.offset,
-              y: this.farmhousePos.y,
-              z: this.farmhousePos.z + 1
-            });
-            chicken.setAttribute('random-walk', 'speed: 0;'); // σταματάει να περπατά
-            chicken.dataset.saved = "true";
-            this.offset += 0.5; // για να μην επικαλύπτονται τα κοτόπουλα
-          }
-        }
-      } else {
-        // Δεν κοιτάμε πια
-        this.lookTimers.delete(chicken);
+    el.addEventListener('click', () => {
+      // Έλεγξε αν είναι κοτόπουλο
+      if (el.classList.contains('chicken')) {
+        const posOffset = 0.5 * document.querySelectorAll('[data-saved="true"]').length;
+        el.setAttribute('position', { x: 1 + posOffset, y: 0, z: 2 });
+        el.setAttribute('random-walk', 'speed: 0');
+        el.setAttribute('data-saved', 'true');
       }
     });
   }
@@ -92,7 +56,7 @@ AFRAME.registerComponent('look-at-chicken-toggle', {
               <a-asset-item id="baby_chicken" src="baby_chicken.glb"></a-asset-item>
               </a-assets>
 <!-- Camera -->        
-          <a-camera look-at-chicken-toggle><a-cursor fuse="true" fuse-timeout="5000"></a-cursor></a-camera>
+          <a-camera> <a-cursor fuse="true" fuse-timeout="5000"></a-cursor></a-camera>
 
 <!-- Lights -->      
           <a-light type="ambient" color="#556677" intensity="0.7"></a-light>
@@ -152,6 +116,7 @@ AFRAME.registerComponent('look-at-chicken-toggle', {
     chicken.setAttribute('scale', '0.1 0.1 0.1');
     chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
     chicken.setAttribute('random-walk', 'speed: 0.5; range: 5');
+    chicken.setAttribute('removing', '');  
 
     scene1.appendChild(chicken);
   }
