@@ -44,8 +44,8 @@ const score3d = document.getElementById('score3d');
 
 const newCount = document.querySelectorAll('[data-saved="true"]').length;
 
-scoreboard.textContent = `Κοτοπουλάκια: ${newCount}`;
-score3d.setAttribute('value', `Κοτοπουλάκια: ${newCount}`);
+scoreboard.textContent = `Chicken: ${newCount}`;
+score3d.setAttribute('value', `Chicken: ${newCount}`);
       }
     });
   }
@@ -109,7 +109,7 @@ score3d.setAttribute('value', `Κοτοπουλάκια: ${newCount}`);
   
   <a-text 
   id="score3d"
-  value="Κοτοπουλάκια: 0"
+  value="Κοτοπουλάκια: 0/15"
   position="0 -0.5 -1"
   color="white"
   align="right"
