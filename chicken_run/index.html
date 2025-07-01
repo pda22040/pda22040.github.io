@@ -115,7 +115,7 @@ AFRAME.registerComponent('removing', {
 window.addEventListener('load', () => {
   const scene1 = document.getElementById('s1');
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 15; i++) {
     const chicken = document.createElement('a-entity');
     const x = Math.random() * 20 - 10;
     const z = Math.random() * 20 - 10;
@@ -172,38 +172,6 @@ window.addEventListener('load', () => {
   flowers.setAttribute('shadow', 'receive: false');
   scene1.appendChild(flowers);
 }
-
-    // --- Εδώ βάζουμε τα 5 κοτοπουλάκια πάνω σε τυχαία δέντρα ---
-
-  const trees = Array.from(document.querySelectorAll('a-entity[gltf-model="#spruce_tree"]'));
-
-  // Ανακάτεψε το array με τα δέντρα για τυχαιότητα
-  for (let i = trees.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [trees[i], trees[j]] = [trees[j], trees[i]];
-  }
-
-  const selectedTrees = trees.slice(0, 5);
-
-  selectedTrees.forEach(tree => {
-    const treePos = tree.getAttribute('position');
-    const chicken = document.createElement('a-entity');
-
-    chicken.setAttribute('gltf-model', '#baby_chicken');
-    chicken.setAttribute('class', 'chicken');
-    chicken.setAttribute('scale', '0.1 0.1 0.1');
-    chicken.setAttribute('position', {
-      x: treePos.x,
-      y: 2.0,  // ύψος πάνω στο δέντρο - μπορείς να το πειράξεις
-      z: treePos.z
-    });
-    chicken.setAttribute('removing', '');
-    chicken.setAttribute('geometry', 'primitive: box');
-    chicken.setAttribute('material', 'opacity: 0; transparent: true');
-
-    scene1.appendChild(chicken);
-  });
-
     </script>
     <hr />
     <p><strong>Οδηγίες:</strong>...</p>
