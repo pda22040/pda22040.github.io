@@ -10,21 +10,32 @@ AFRAME.registerComponent('removing', {
 
     el.addEventListener('click', () => {
       if (el.classList.contains('chicken')) {
-       const savedCount = document.querySelectorAll('[data-saved="true"]').length;
-const rowLength = 5;  // πόσα σε κάθε σειρά
-const spacing = 1.5;
+        const savedCount = document.querySelectorAll('[data-saved="true"]').length;
 
-const row = Math.floor(savedCount / rowLength);
-const col = savedCount % rowLength;
+        // Κεντρική θέση που θέλεις
+        const baseX = 12;
+        const baseZ = 20;
 
-el.setAttribute('position', {
-  x: 12 + col * spacing,
-  y: 0,
-  z: 20 + row * spacing
-});
+        // Απλή διάταξη σε grid (π.χ. 5 σε κάθε σειρά)
+        const rowLength = 5;
+        const spacing = 1.5;
+
+        const row = Math.floor(savedCount / rowLength);
+        const col = savedCount % rowLength;
+
+        // Προσθέτουμε τυχαίο offset έως ±0.5 για πιο φυσική εμφάνιση
+        const randomOffsetX = (Math.random() - 0.5);
+        const randomOffsetZ = (Math.random() - 0.5);
+
+        el.setAttribute('position', { 
+          x: baseX + col * spacing + randomOffsetX,
+          y: 0,
+          z: baseZ + row * spacing + randomOffsetZ
+        });
+
         el.setAttribute('random-walk', 'speed: 0');
-        el.setAttribute('animation-mixer', 'pause: true');
-        el.removeAttribute('animation-mixer');
+        el.removeAttribute('animation-mixer'); // σταματά το animation
+        el.setAttribute('data-saved', 'true');
       }
     });
   }
