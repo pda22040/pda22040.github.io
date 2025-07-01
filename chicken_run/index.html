@@ -35,13 +35,42 @@ AFRAME.registerComponent('removing', {
         });
 
         el.setAttribute('random-walk', 'speed: 0');
-        el.removeAttribute('animation-mixer'); // σταματά το animation
+        el.removeAttribute('animation-mixer'); 
         el.setAttribute('data-saved', 'true');
+
+          // Ενημέρωση σκορ
+        const scoreboard = document.getElementById('scoreboard');
+        const newCount = savedCount + 1;
+        scoreboard.textContent = `Κοτοπουλάκια: ${newCount}`;
       }
     });
   }
 });
 </script>
+
+        
+<div id="scoreboard">Chicken: 0</div>
+<style>
+#scoreboard {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #3a3a3a;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  user-select: none;
+  z-index: 1000;
+  transition: background 0.3s ease;
+}
+#scoreboard:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
         
     <style>
         h1 { text-align: center; }
