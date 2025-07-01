@@ -19,7 +19,7 @@
    
     <!-- ΕΔΩ ΠΕΡΙΓΡΑΦΩ ΤΗ ΣΚΗΝΗ -->
           <a-scene id="s1" cursor="rayOrigin: mouse" background="color:LightBlue" shadow="type: pcfsoft" ondblclick="this.requestFullscreen();"embedded>
-          <a-camera look-at-chicken-toggle jump-on-space-simple><a-cursor fuse="true" fuse-timeout="5000"></a-cursor></a-camera>
+          <a-camera look-at-chicken-toggle><a-cursor fuse="true" fuse-timeout="5000"></a-cursor></a-camera>
           <a-light type="ambient" color="#556677" intensity="0.7"></a-light>
           <a-light type="directional" color="#ffddaa" intensity="01.2" position="10 15 10" cast-shadow="true"></a-light>
           <a-plane color="DarkOliveGreen" height="500" width="500" rotation="-90 0 0" metalness="0" shadow></a-plane>
@@ -36,32 +36,6 @@
 
     
 <script>
-AFRAME.registerComponent('jump-on-space-simple', {
-  schema: {jumpHeight: {type: 'number', default: 1}},
-  init: function () {
-    this.isJumping = false;
-    window.addEventListener('keydown', e => {
-      if (e.code === 'Space' && !this.isJumping) {
-        this.isJumping = true;
-        this.jump();
-      }
-    });
-  },
-  jump: function () {
-    const el = this.el;
-    const initialY = el.object3D.position.y;
-    const jumpHeight = this.data.jumpHeight;
-
-    // Άνοδος
-    el.object3D.position.y = initialY + jumpHeight;
-
-    // Επιστροφή μετά από 500ms
-    setTimeout(() => {
-      el.object3D.position.y = initialY;
-      this.isJumping = false;
-    }, 500);
-  }
-});
 
     
 // Component για έλεγχο αν η κάμερα κοιτάει κοτόπουλο
