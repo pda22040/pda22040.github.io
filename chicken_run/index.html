@@ -138,8 +138,8 @@ AFRAME.registerComponent('removing', {
 });
     
     // ΕΔΩ ΔΗΜΙΟΥΡΓΩ ΠΟΛΛΑΠΛΑ ΑΝΤΙΓΡΑΦΑ ΜΙΑΣ ΟΝΤΟΤΗΤΑΣ
-        var scene1 = document.getElementById('s1');
-        for(var i = 0; i < 400; i++) {
+  var scene1 = document.getElementById('s1');
+  for(var i = 0; i < 400; i++) {
   var x = Math.random() * 200 - 100;
   var z = Math.random() * 200 - 100;
   var dx = x - 1;
@@ -157,20 +157,23 @@ AFRAME.registerComponent('removing', {
   scene1.appendChild(tree);
 }
 
+  for (var i = 0; i < 200; i++) {
+  var x = Math.random() * 200 - 100;
+  var z = Math.random() * 200 - 100;
+  if (x > -14 && x < 16 && z > -14 && z < 16) {
+    continue;  // μέσα σε πλαίσιο 30x30
+  }
+  var flowers = document.createElement('a-entity');
+  var s = 0.03;
+  var r = Math.random() * 180 - 90;
+  flowers.setAttribute('gltf-model', '#colored_flower');
+  flowers.setAttribute('position', x + ' 0 ' + z);
+  flowers.setAttribute('scale', s + ' ' + s + ' ' + s);
+  flowers.setAttribute('rotation', '0 ' + r + ' 0');
+  flowers.setAttribute('shadow', 'receive: false');  
+  scene1.appendChild(flowers);
+}
     
-      for (var i = 0; i < 200; i++) {
-      var flowers = document.createElement('a-entity');
-      var x = Math.random() * 100 - 50;
-      var z = Math.random() * 100 - 50;
-      var s = 0.03;
-      var r = Math.random() * 180 - 90;
-      flowers.setAttribute('gltf-model', '#colored_flower');
-      flowers.setAttribute('position', x + ' 0 ' + z);
-      flowers.setAttribute('scale', s + ' ' + s + ' ' + s);
-      flowers.setAttribute('rotation', '0 ' + r + ' 0');
-      flowers.setAttribute('shadow', 'receive: false');  
-      scene1.appendChild(flowers);
-      }
     </script>
     <hr />
     <p><strong>Οδηγίες:</strong>strong>...</p>
