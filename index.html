@@ -4,37 +4,45 @@
         <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
         
 <script>
+    //  Ένα Component που εξαφανίζει τα κοτοπουλάκια με το κλικ και τα επιστρέφει στο κοτέτσι. 
     AFRAME.registerComponent('removing', {
     init: function () {
     const el = this.el;
     const sound = el.querySelector('a-sound');
-            
+        
+// Αν το αντικείμενο δεχτεί κλικ, ελέγχει αν το element έχει την κλάση "chicken" και αν υπάρχει ήχος, παίζει.  
         el.addEventListener('click', () => {
         if (el.classList.contains('chicken')) {
         if (sound) {
          sound.components.sound.playSound();
         }
 
+// Υπολογίζει και αποθηκεύει πόσα κοτοπουλάκια έχουν σωθεί.
     el.setAttribute('data-saved', 'true');
     const savedCount = document.querySelectorAll('[data-saved="true"]').length;
 
-    const baseX = 3;
-    const baseZ = 10;
-    const rowLength = 5;
-    const spacing = 1.5;
+// Συντετγμένες για τα κοτοπουλάκια αφού έχουν σωθεί.
+    const baseX = 3;                       // Θέση Χ.
+    const baseZ = 10;                     // Θέση Ζ.
+    const rowLength = 5;                 // Πόσα υπάρχουν σε κάθε γραμμή.
+    const spacing = 1.5;                // Η απόσταση μεταξύ τους.
 
+// Υπολογίζει σε ποιά γραμμή και στήλη θα τοποθετηθεί το κάθε κοτοπουλάκι.
     const row = Math.floor(savedCount / rowLength);
     const col = savedCount % rowLength;
-
+            
+// Μετατοπίζει τυχάια τα κοτοπουλάκια για να μην είναισ στην ίδια ευθεία.
     const randomOffsetX = (Math.random() - 0.5);
     const randomOffsetZ = (Math.random() - 0.5);
 
+//Τοποθετεί κάθε κοτοπουλάκι σε νέα θέση.
     el.setAttribute('position', { 
       x: baseX + col * spacing + randomOffsetX,
       y: 0,
       z: baseZ + row * spacing + randomOffsetZ
     });
 
+// Σταματάει την κίνησει και παγώνει το animation.
     el.setAttribute('random-walk', 'speed: 0');
     el.removeAttribute('animation-mixer');
 
@@ -66,24 +74,20 @@
 <div id="scoreboard">Chicken: 0/15 </div>
         <style>
   #scoreboard {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: rgba(255, 255, 255, 0.85);
-  padding: 10px 20px;
-  border-radius: 12px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 18px;
-  font-weight: bold;
-  color: #3a3a3a;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  user-select: none;
-  z-index: 1000;
-  transition: background 0.3s ease;
-}
-            
-#scoreboard:hover {
-  background: rgba(255, 255, 255, 1);
+  position: fixed;                                                 /* Το scoreboard τοποθετείται σε σταθερό σημείο*/
+  top: 20px;                                                       /* Η απόσταση από την κορυφή της οθόνης*/
+  right: 20px;                                                     /* Η απόσταση από το δεξί άκρο της οθόνης*/
+  background: rgba(255, 255, 255, 0.85);                           /* Το χρώμα του φόντου με διαφάνεια*/
+  padding: 10px 20px;                                              /* Εσωτερικό περιθώριο*/
+  border-radius: 12px;                                             /* Καμπυλωτές γωνίες*/
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;    /* Γραμματοσείρά*/
+  font-size: 18px;                                                 /* Μέγεθος κειμένου*/
+  font-weight: bold;                                               /* Έντονη γραμματοσειρά*/
+  color: #3a3a3a;                                                  /* Χρώμα κειμένου*/
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);                         /* Σκιά κάτω από το πλαίσιο*/
+  user-select: none;                                               /* Δεν μπορεί να επιλεχθεί το κείμενο*/
+  z-index: 1000;                                                   /* Εφανίζεται πάνω από άλλα στοιχεία*/
+  transition: background 0.3s ease;                                /* Ομαλή μετάβαση άν αλλάξει το background*/
 }
 
 h1 { text-align: center; }
