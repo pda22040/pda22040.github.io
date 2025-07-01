@@ -7,7 +7,6 @@
 AFRAME.registerComponent('removing', {
   init: function () {
     const el = this.el;
-
     const sound = el.querySelector('a-sound');
       
      el.addEventListener('click', () => {
@@ -16,7 +15,9 @@ AFRAME.registerComponent('removing', {
           sound.components.sound.playSound();
         }
           
+        el.setAttribute('data-saved', 'true');
         const savedCount = document.querySelectorAll('[data-saved="true"]').length;
+          
         const baseX = 3;
         const baseZ = 10;
         const rowLength = 5;
@@ -36,7 +37,6 @@ AFRAME.registerComponent('removing', {
 
         el.setAttribute('random-walk', 'speed: 0');
         el.removeAttribute('animation-mixer'); // σταματά το animation
-        el.setAttribute('data-saved', 'true');
 
            // Ενημέρωση σκορ
        const scoreboard = document.getElementById('scoreboard');
@@ -48,6 +48,7 @@ AFRAME.registerComponent('removing', {
     if(score3d) {
       score3d.setAttribute('value', `${savedCount} / 15`);
     }
+      }
     });
   }
 });
