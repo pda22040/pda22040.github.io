@@ -20,11 +20,17 @@ AFRAME.registerComponent('removing', {
 
         const savedCount = document.querySelectorAll('[data-saved="true"]').length;
 
+
+ const scoreboard = document.getElementById('scoreboard');
+    if (scoreboard) {
+      scoreboard.textContent = `${savedCount} / 15`;
+    }
+          
         // Ενημέρωση σκορ 3D μέσα στην κάμερα
         const score3d = document.getElementById('score3d');
-        if(score3d) {
-          score3d.setAttribute('value', savedCount + ' / 15');
-        }
+    if(score3d) {
+      score3d.setAttribute('value', `${savedCount} / 15`);
+    }
 
         const baseX = 3;
         const baseZ = 10;
