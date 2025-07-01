@@ -82,47 +82,37 @@ AFRAME.registerComponent('removing', {
 
     
 <script>  
- AFRAME.registerComponent('random-walk', {
-  schema: {
-    speed: { type: 'number', default: 0.5 },
-    range: { type: 'number', default: 10 }
-  },
-  init: function () {
-    this.target = new THREE.Vector3();
-    this.chooseNewTarget();
-  },
-  tick: function (time, delta) {
-    const el = this.el.object3D;
-    const pos = el.position;
-    const dir = new THREE.Vector3().subVectors(this.target, pos);
-    const dist = dir.length();
-
-    if (dist < 0.1) {
+  AFRAME.registerComponent('random-walk', {
+    schema: {
+      speed: { type: 'number', default: 0.5 },
+      range: { type: 'number', default: 10 }
+    },
+    init: function () {
+      this.target = new THREE.Vector3();
       this.chooseNewTarget();
-    } else {
-      dir.normalize();
-      el.position.addScaledVector(dir, this.data.speed * delta / 1000);
-      el.lookAt(this.target);
+    },
+    tick: function (time, delta) {
+      const el = this.el.object3D;
+      const pos = el.position;
+      const dir = new THREE.Vector3().subVectors(this.target, pos);
+      const dist = dir.length();
+
+      if (dist < 0.1) {
+        this.chooseNewTarget();
+      } else {
+        dir.normalize();
+        el.position.addScaledVector(dir, this.data.speed * delta / 1000);
+        el.lookAt(this.target);
+      }
+    },
+    chooseNewTarget: function () {
+      const current = this.el.object3D.position;
+      const x = current.x + (Math.random() * this.data.range - this.data.range / 2);
+      const z = current.z + (Math.random() * this.data.range - this.data.range / 2);
+      this.target.set(x, current.y, z);
     }
-  },
-  chooseNewTarget: function () {
-    const current = this.el.object3D.position;
-    let x, z;
-    const forbiddenMinX = -14;
-    const forbiddenMaxX = 16;
-    const forbiddenMinZ = -14;
-    const forbiddenMaxZ = 16;
+  });
 
-    do {
-      x = current.x + (Math.random() * this.data.range - this.data.range / 2);
-      z = current.z + (Math.random() * this.data.range - this.data.range / 2);
-      // Επαναλαμβάνουμε όσο το σημείο είναι μέσα στο "απαγορευμένο" ορθογώνιο
-    } while (x > forbiddenMinX && x < forbiddenMaxX && z > forbiddenMinZ && z < forbiddenMaxZ);
-
-    this.target.set(x, current.y, z);
-  }
-});
-    
  window.addEventListener('load', () => {
   const scene1 = document.getElementById('s1');
 
@@ -135,13 +125,13 @@ AFRAME.registerComponent('removing', {
     chicken.setAttribute('class', 'chicken');  // **προσθήκη class**
     chicken.setAttribute('position', `${x} 0 ${z}`);
     chicken.setAttribute('scale', '0.1 0.1 0.1');
-    chicken.setAttribute('animation-mixer', 'loop: repeat');
+    chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
     chicken.setAttribute('random-walk', 'speed: 0.5; range: 5');
     chicken.setAttribute('removing', '');  
     chicken.setAttribute('geometry', 'primitive: box');
-    chicken.setAttribute('material', 'opacity: 0; transparent: true');
+    chicken.setAttribute('material', 'opacity: 0; transparent: true');More actions
     chicken.setAttribute('dynamic-body', 'shape: box; mass: 1');
-      
+
 
     scene1.appendChild(chicken);
   }
