@@ -115,6 +115,7 @@ AFRAME.registerComponent('removing', {
 window.addEventListener('load', () => {
   const scene1 = document.getElementById('s1');
 
+// Chicken
   for (let i = 0; i < 15; i++) {
     const chicken = document.createElement('a-entity');
     const x = Math.random() * 20 - 10;
@@ -131,14 +132,10 @@ window.addEventListener('load', () => {
     chicken.setAttribute('material', 'opacity: 0; transparent: true');
     scene1.appendChild(chicken);
   }
-    });
     
-    // ΕΔΩ ΔΗΜΙΟΥΡΓΩ ΠΟΛΛΑΠΛΑ ΑΝΤΙΓΡΑΦΑ ΜΙΑΣ ΟΝΤΟΤΗΤΑΣ
-        var scene1 = document.getElementById('s1');
-          for (var i = 0; i < 300; i++) {
+// Trees
+   for (var i = 0; i < 300; i++) {
   var x, z;
-
-  // Επανάλαβε μέχρι να βρεις θέση ΕΚΤΟΣ no-spawn περιοχής
   do {
     x = Math.random() * 200 - 100;
     z = Math.random() * 200 - 100;
@@ -153,10 +150,10 @@ window.addEventListener('load', () => {
   tree.setAttribute('rotation', '0 ' + r + ' 0');
   scene1.appendChild(tree);
 }
-     for (var i = 0; i < 300; i++) {
+    
+// Flowers
+ for (var i = 0; i < 300; i++) {
   var x, z;
-
-  // αποφυγή περιοχής γύρω από το σπίτι
   do {
     x = Math.random() * 200 - 100;
     z = Math.random() * 200 - 100;
@@ -171,7 +168,9 @@ window.addEventListener('load', () => {
   flowers.setAttribute('rotation', '0 ' + r + ' 0');
   flowers.setAttribute('shadow', 'receive: false');
   scene1.appendChild(flowers);
-}
+ }
+});
+    
     </script>
     <hr />
     <p><strong>Οδηγίες:</strong>...</p>
