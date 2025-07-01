@@ -41,8 +41,14 @@ AFRAME.registerComponent('removing', {
            // Ενημέρωση σκορ
        const scoreboard = document.getElementById('scoreboard');
     if (scoreboard) {
-     scoreboard.textContent = `Chicken: ${savedCount} / 15`;
-    }
+  scoreboard.textContent = `Chicken: ${savedCount} / 15`;
+}
+     if (savedCount === 15) {
+  const endMsg = document.getElementById('endMessage');
+  if (endMsg) {
+    endMsg.style.display = 'block';
+  }
+}     
 
           const score3d = document.getElementById('score3d');
     if(score3d) {
@@ -54,6 +60,7 @@ AFRAME.registerComponent('removing', {
 });
     </script>
         
+ <div id="endMessage">🎉 Well done! 🎉</div>     
 <div id="scoreboard">Chicken: 0/15 </div>
 <style>
 #scoreboard {
@@ -74,6 +81,23 @@ AFRAME.registerComponent('removing', {
 }
 #scoreboard:hover {
   background: rgba(255, 255, 255, 1);
+}
+
+#endMessage {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  font-weight: bold;
+  color: white;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 30px 50px;
+  border-radius: 20px;
+  z-index: 2000;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
         h1 { text-align: center; }
