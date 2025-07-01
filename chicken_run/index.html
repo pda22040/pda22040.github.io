@@ -10,53 +10,53 @@ AFRAME.registerComponent('removing', {
     const sound = el.querySelector('a-sound');
       
      el.addEventListener('click', () => {
-      if (el.classList.contains('chicken')) {
-        if (sound) {
-          sound.components.sound.playSound();
-        }
-          
-        el.setAttribute('data-saved', 'true');
-        const savedCount = document.querySelectorAll('[data-saved="true"]').length;
-          
-        const baseX = 3;
-        const baseZ = 10;
-        const rowLength = 5;
-        const spacing = 1.5;
+  if (el.classList.contains('chicken')) {
+    if (sound) {
+      sound.components.sound.playSound();
+    }
 
-        const row = Math.floor(savedCount / rowLength);
-        const col = savedCount % rowLength;
+    el.setAttribute('data-saved', 'true');
+    const savedCount = document.querySelectorAll('[data-saved="true"]').length;
 
-        const randomOffsetX = (Math.random() - 0.5);
-        const randomOffsetZ = (Math.random() - 0.5);
+    const baseX = 3;
+    const baseZ = 10;
+    const rowLength = 5;
+    const spacing = 1.5;
 
-          el.setAttribute('position', { 
-          x: baseX + col * spacing + randomOffsetX,
-          y: 0,
-          z: baseZ + row * spacing + randomOffsetZ
-        });
+    const row = Math.floor(savedCount / rowLength);
+    const col = savedCount % rowLength;
 
-        el.setAttribute('random-walk', 'speed: 0');
-        el.removeAttribute('animation-mixer'); // σταματά το animation
+    const randomOffsetX = (Math.random() - 0.5);
+    const randomOffsetZ = (Math.random() - 0.5);
 
-           // Ενημέρωση σκορ
-       const scoreboard = document.getElementById('scoreboard');
+    el.setAttribute('position', { 
+      x: baseX + col * spacing + randomOffsetX,
+      y: 0,
+      z: baseZ + row * spacing + randomOffsetZ
+    });
+
+    el.setAttribute('random-walk', 'speed: 0');
+    el.removeAttribute('animation-mixer'); // σταματά το animation
+
+    // Ενημέρωση scoreboard
+    const scoreboard = document.getElementById('scoreboard');
     if (scoreboard) {
-  scoreboard.textContent = `Chicken: ${savedCount} / 15`;
-}
-    if (savedCount === 15) {
-  const wellDone = document.getElementById('wellDoneText');
-  if (wellDone) {
-    wellDone.setAttribute('visible', 'true');
-  }
-}
-}     
+      scoreboard.textContent = `Chicken: ${savedCount} / 15`;
+    }
 
-          const score3d = document.getElementById('score3d');
-    if(score3d) {
+    // Ενημέρωση 3D score
+    const score3d = document.getElementById('score3d');
+    if (score3d) {
       score3d.setAttribute('value', `${savedCount} / 15`);
     }
+
+    // Εμφάνιση μηνύματος Well Done
+    if (savedCount === 15) {
+      const wellDone = document.getElementById('wellDoneText');
+      if (wellDone) {
+        wellDone.setAttribute('visible', 'true');
       }
-    });
+    }
   }
 });
     </script>
