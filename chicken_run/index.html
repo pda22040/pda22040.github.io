@@ -135,7 +135,7 @@ AFRAME.registerComponent('removing', {
     chicken.setAttribute('class', 'chicken');  // **προσθήκη class**
     chicken.setAttribute('position', `${x} 0 ${z}`);
     chicken.setAttribute('scale', '0.1 0.1 0.1');
-    chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
+    chicken.setAttribute('animation-mixer', 'loop: repeat');
     chicken.setAttribute('random-walk', 'speed: 0.5; range: 5');
     chicken.setAttribute('removing', '');  
     chicken.setAttribute('geometry', 'primitive: box');
@@ -186,7 +186,7 @@ AFRAME.registerComponent('removing', {
     
     </script>
     <hr />
-    <p><strong>Οδηγίες:</strong>strong>...</p>
+    <p><strong>Οδηγίες:</strong> ...</p>
     <hr />
     <p><strong>Credits:</strong></p>
 </body>
