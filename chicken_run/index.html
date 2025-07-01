@@ -8,22 +8,23 @@ AFRAME.registerComponent('removing', {
   init: function () {
     const el = this.el;
 
-    el.addEventListener('click', () => {
+    const sound = el.querySelector('a-sound');
+      
+     el.addEventListener('click', () => {
       if (el.classList.contains('chicken')) {
+        if (sound) {
+          sound.components.sound.playSound();
+        }
+          
         const savedCount = document.querySelectorAll('[data-saved="true"]').length;
-
-        // Κεντρική θέση που θέλεις
         const baseX = 3;
         const baseZ = 10;
-
-        // Απλή διάταξη σε grid (π.χ. 5 σε κάθε σειρά)
         const rowLength = 5;
         const spacing = 1.5;
 
         const row = Math.floor(savedCount / rowLength);
         const col = savedCount % rowLength;
 
-        // Προσθέτουμε τυχαίο offset έως ±0.5 για πιο φυσική εμφάνιση
         const randomOffsetX = (Math.random() - 0.5);
         const randomOffsetZ = (Math.random() - 0.5);
 
@@ -67,6 +68,7 @@ AFRAME.registerComponent('removing', {
               <a-asset-item id="little_farmhouse" src="little_farmhouse.glb"></a-asset-item>
               <a-asset-item id="colored_flower" src="colored_flower.glb"></a-asset-item>
               <a-asset-item id="baby_chicken" src="baby_chicken.glb"></a-asset-item>
+                  <audio id="chick_sound" src="chick_sound.mp3"></audio>
               </a-assets>
 <!-- Camera -->        
           <a-camera> <a-cursor fuse="true" fuse-timeout="5000"></a-cursor></a-camera>
@@ -130,7 +132,13 @@ window.addEventListener('load', () => {
     chicken.setAttribute('removing', '');
     chicken.setAttribute('geometry', 'primitive: box');
     chicken.setAttribute('material', 'opacity: 0; transparent: true');
-    scene1.appendChild(chicken);
+
+  const sound = document.createElement('a-sound');
+  sound.setAttribute('src', '#catch-sound');
+  sound.setAttribute('autoplay', 'false');
+  sound.setAttribute('volume', '1');
+  chicken.appendChild(sound);
+  scene1.appendChild(chicken);
   }
     
 // Trees
