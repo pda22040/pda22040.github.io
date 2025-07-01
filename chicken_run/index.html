@@ -12,9 +12,9 @@ AFRAME.registerComponent('removing', {
       if (el.classList.contains('chicken')) {
         const savedCount = document.querySelectorAll('[data-saved="true"]').length;
         el.setAttribute('position', { 
-          x: 0.5 + savedCount * 0.4,
+          x: 00.5 + savedCount * 0.4,
           y: 0, 
-          z: 3 + savedCount * 0.2 
+          z: 10 + savedCount * 0.2 
         });
         el.setAttribute('random-walk', 'speed: 0');
         el.setAttribute('data-saved', 'true');
