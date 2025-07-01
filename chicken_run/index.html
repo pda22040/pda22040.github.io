@@ -87,6 +87,7 @@ AFRAME.registerComponent('removing', {
     schema: {
       speed: { type: 'number', default: 0.5 },
       range: { type: 'number', default: 10 }
+     center: { type: 'vec3', default: { x: 0, y: 0, z: 0 } }
     },
     init: function () {
       this.target = new THREE.Vector3();
@@ -128,7 +129,7 @@ window.addEventListener('load', () => {
     chicken.setAttribute('position', x + ' 0 ' + z);
     chicken.setAttribute('scale', '0.1 0.1 0.1');
     chicken.setAttribute('animation-mixer', 'clip: *; loop: repeat');
-    chicken.setAttribute('random-walk', 'speed: 0.8; range: 200');
+    chicken.setAttribute('random-walk', 'speed: 0.8; range: 200; center: 1 0 1');
     chicken.setAttribute('removing', '');
     chicken.setAttribute('geometry', 'primitive: box');
     chicken.setAttribute('material', 'opacity: 0; transparent: true');
