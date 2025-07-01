@@ -39,10 +39,15 @@ AFRAME.registerComponent('removing', {
         el.setAttribute('data-saved', 'true');
 
            // Ενημέρωση σκορ
-        const scoreboard = document.getElementById('scoreboard');
-        const newCount = savedCount + 1;
-        scoreboard.textContent = `Κοτοπουλάκια: ${newCount}`;
-      }
+       const scoreboard = document.getElementById('scoreboard');
+    if (scoreboard) {
+      scoreboard.textContent = `${savedCount} / 15`;
+    }
+
+          const score3d = document.getElementById('score3d');
+    if(score3d) {
+      score3d.setAttribute('value', `${savedCount} / 15`);
+    }
     });
   }
 });
