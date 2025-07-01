@@ -12,11 +12,12 @@ AFRAME.registerComponent('removing', {
       if (el.classList.contains('chicken')) {
         const savedCount = document.querySelectorAll('[data-saved="true"]').length;
         el.setAttribute('position', { 
-          x: 10 + savedCount * 0.6,
+          x: 12 + savedCount * 0.8,
           y: 0, 
-          z: 20 + savedCount * 0.4 
+          z: 20 + savedCount * 0.5
         });
         el.setAttribute('random-walk', 'speed: 0');
+        el.setAttribute('animation-mixer', 'pause: true');
         el.setAttribute('data-saved', 'true');
       }
     });
