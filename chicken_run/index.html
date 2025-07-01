@@ -39,9 +39,9 @@ AFRAME.registerComponent('removing', {
         el.setAttribute('data-saved', 'true');
 
           // Ενημέρωση σκορ
-        const scoreboard = document.getElementById('scoreboard');
+        const scoreText = document.querySelector('#score-text');
         const newCount = savedCount + 1;
-        scoreboard.textContent = `Κοτοπουλάκια: ${newCount}`;
+        scoreText.setAttribute('value', `Κοτοπουλάκια: ${newCount}`);
       }
     });
   }
@@ -100,7 +100,17 @@ AFRAME.registerComponent('removing', {
                   <audio id="chick_sound" src="chick_sound.mp3"></audio>
               </a-assets>
 <!-- Camera -->        
-          <a-camera> <a-cursor fuse="true" fuse-timeout="5000"></a-cursor></a-camera>
+          <a-camera> 
+              <a-text id="score-text" value="Κοτοπουλάκια: 0" 
+        position="0.8 0.6 -1" 
+        color="#222" 
+        align="right" 
+        width="2" 
+        font="mozillavr" 
+        baseline="top" 
+        wrap-count="20"
+        side="double"
+        ></a-text> <a-cursor fuse="true" fuse-timeout="5000"></a-cursor></a-camera>
 
 <!-- Lights -->      
           <a-light type="ambient" color="#556677" intensity="0.7"></a-light>
