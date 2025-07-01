@@ -37,6 +37,11 @@ AFRAME.registerComponent('removing', {
         el.setAttribute('random-walk', 'speed: 0');
         el.removeAttribute('animation-mixer'); // σταματά το animation
         el.setAttribute('data-saved', 'true');
+
+           // Ενημέρωση σκορ
+        const scoreboard = document.getElementById('scoreboard');
+        const newCount = savedCount + 1;
+        scoreboard.textContent = `Κοτοπουλάκια: ${newCount}`;
       }
     });
   }
