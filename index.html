@@ -4,7 +4,7 @@
         <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
         
 <script>
-    //  Ένα Component που εξαφανίζει τα κοτοπουλάκια με το κλικ και τα επιστρέφει στο κοτέτσι. 
+//  Ένα Component που εξαφανίζει τα κοτοπουλάκια με το κλικ και τα επιστρέφει στο κοτέτσι. 
     AFRAME.registerComponent('removing', {
     init: function () {
     const el = this.el;
@@ -35,7 +35,7 @@
     const randomOffsetX = (Math.random() - 0.5);
     const randomOffsetZ = (Math.random() - 0.5);
 
-//Τοποθετεί κάθε κοτοπουλάκι σε νέα θέση.
+// Τοποθετεί κάθε κοτοπουλάκι σε νέα θέση.
     el.setAttribute('position', { 
       x: baseX + col * spacing + randomOffsetX,
       y: 0,
