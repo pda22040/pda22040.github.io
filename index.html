@@ -158,28 +158,28 @@ a-scene { width: 50%; height: 50%; border: dotted RosyBrown 5px; }
 
     
 <script>
- AFRAME.registerComponent('random-walk', {
-  schema: {
-    speed: { type: 'number', default: 0.5 },
-    range: { type: 'number', default: 10 }, 
-    center: { type: 'vec3', default: { x: 0, y: 0, z: 0 } }
+ AFRAME.registerComponent('random-walk', {                      // Ένα component που κάνει τα κοτοπουλάκια να περπατάνε τυχαία μέσα στον χώρο.
+  schema: {                                                     // Δεδομένα παραμέτρων.
+    speed: { type: 'number', default: 0.5 },                    // Προεπιλεγμένη ταχύτητα.
+    range: { type: 'number', default: 10 },                     // Προεπιλεγμένη ακτίνα όπου κινούνται.
+    center: { type: 'vec3', default: { x: 0, y: 0, z: 0 } }     // Κέντρο της περιοχχής.
   },
     init: function () {
-    this.target = new THREE.Vector3();
-    this.chooseNewTarget();
+    this.target = new THREE.Vector3();                               // Δημιουργεί ένα στόχο.
+    this.chooseNewTarget();                                          // Επιλέγει την πρώτη τυχαία κατεύθυνση.
   },
     tick: function (time, delta) {
-    const el = this.el.object3D;
-    const pos = el.position;
-    const dir = new THREE.Vector3().subVectors(this.target, pos);
-    const dist = dir.length();
-
-      if (dist < 0.1) {
-      this.chooseNewTarget();
-    } else {
-      dir.normalize();
-      el.position.addScaledVector(dir, this.data.speed * delta / 1000);
-      el.lookAt(this.target);
+    const el = this.el.object3D;                                     // Παίρνει το 3d αντικείμενο στο οπόιο ανήκει το component.
+    const pos = el.position;                                         // Παίρνει την τρέχουσα θέση του.
+    const dir = new THREE.Vector3().subVectors(this.target, pos);    // Υπολογίζει την κατεύθηνση που θα διασχίσει μέχρι τον στόχο.
+    const dist = dir.length();                                       // Υπολογίζει την κατεύθυνση από τον στόχο/
+ 
+      if (dist < 0.1) {                                                      // ΑΝ είναι πού κοντά στον στόχο.
+      this.chooseNewTarget();                                                // Επιλέγει έναν νέο.
+    } else {                                                         
+      dir.normalize();                                                      // Αλλιώς διανύει την κετέυθηνση.
+      el.position.addScaledVector(dir, this.data.speed * delta / 1000);     // Το αντικείμενο ετακινείται προς τον στόχο με βάση την ταχύτητα που έχει.
+      el.lookAt(this.target);                                               // Το αντικείμενο στρέφεται προς τον στόχο.
     }
   },
     chooseNewTarget: function () {
